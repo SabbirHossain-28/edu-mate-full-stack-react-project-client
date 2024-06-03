@@ -1,7 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { SiSololearn } from "react-icons/si";
 
 const Navbar = () => {
+  const navLinks = (
+    <>
+      <li>
+        <NavLink>Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/allClasses">All Classes</NavLink>
+      </li>
+      <li>
+        <NavLink to="/teachOn">Teach on EduMate</NavLink>
+      </li>
+    </>
+  );
   return (
     <>
       <div className="navbar bg-[#07332F]">
@@ -29,14 +42,9 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 font-poppin"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
+              {navLinks}
             </ul>
           </div>
           <Link className=" text-3xl font-pop text-[#151515]">
@@ -47,17 +55,12 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex text-white">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
+          <ul className="menu menu-horizontal px-1 font-poppin">{navLinks}</ul>
         </div>
         <div className="navbar-end ">
-          <button className="btn btn-xs text-[#F2871D] font-poppin md:btn-sm lg:btn-md mr-4">Login</button>
+          <button className="btn btn-xs text-[#F2871D] font-poppin md:btn-sm lg:btn-md mr-4">
+            Login
+          </button>
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -73,19 +76,16 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="mt-3 z-[1]  p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              className="mt-3 z-[1]  p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 font-poppin"
             >
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
+                <p className="justify-between">Profile</p>
               </li>
               <li>
-                <a>Settings</a>
+                <Link>Dashboard</Link>
               </li>
               <li>
-                <a>Logout</a>
+                <button>Logout</button>
               </li>
             </ul>
           </div>
