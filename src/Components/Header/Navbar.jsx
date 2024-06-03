@@ -58,9 +58,11 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 font-poppin">{navLinks}</ul>
         </div>
         <div className="navbar-end ">
-          <button className="btn btn-xs text-[#F2871D] font-poppin md:btn-sm lg:btn-md mr-4">
-            Login
-          </button>
+          <Link to="/login">
+            <button className="btn btn-xs text-[#F2871D] font-poppin md:btn-sm lg:btn-md mr-4">
+              Login
+            </button>
+          </Link>
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
