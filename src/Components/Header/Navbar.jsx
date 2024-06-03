@@ -3,8 +3,8 @@ import { SiSololearn } from "react-icons/si";
 
 const Navbar = () => {
   return (
-    <div>
-      <div className="navbar bg-[#07332F] border">
+    <>
+      <div className="navbar bg-[#07332F]">
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -73,7 +73,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              className="mt-3 z-[1]  p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
                 <a className="justify-between">
@@ -91,7 +91,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
