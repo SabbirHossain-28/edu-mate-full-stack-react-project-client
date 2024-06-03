@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        "raleWay":"'Raleway', 'sans-serif'",
+        "poppin":"'Poppins', 'sans-serif'",
+        "pop":"'Mochiy Pop One', 'sans-serif'",
+      }
+    },
   },
   plugins: [
     require('daisyui'),
