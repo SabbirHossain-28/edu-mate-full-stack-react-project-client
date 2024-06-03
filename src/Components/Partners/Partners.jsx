@@ -2,6 +2,7 @@ import Marquee from "react-fast-marquee";
 import { FaGooglePlusG } from "react-icons/fa";
 import { TfiMicrosoft } from "react-icons/tfi";
 import { SiCoursera, SiUdacity, SiEdx, SiKhanacademy } from "react-icons/si";
+import SectionHeader from "../../Shared/SectionHeader/SectionHeader";
 
 const partners = [
   {
@@ -44,7 +45,13 @@ const partners = [
 ];
 const Partners = () => {
   return (
-    <div className="my-12">
+    <div className="max-w-7xl mx-auto my-12">
+      <SectionHeader
+        title={"Our Esteemed Partners and Collaborators"}
+        description={
+          "At EduMate, we are proud to collaborate with industry leaders and esteemed organizations that share our vision of revolutionizing education. Our partners bring a wealth of expertise, resources, and innovation, helping us provide the best learning experience possible.  Meet our trusted partners and discover how our collaborations are shaping the future of education."
+        }
+      ></SectionHeader>
       <Marquee>
         {partners.map((data, idx) => (
           <div
@@ -62,23 +69,22 @@ const Partners = () => {
               </div>
             </div>
 
-            <h2 className="mt-2 text-xl font-semibold text-gray-800 dark:text-white md:mt-0">
+            <h2 className="mt-2 text-xl font-poppin font-semibold text-gray-800 dark:text-white md:mt-0">
               {data.name}
             </h2>
 
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-200">
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-200 font-poppin">
               {data.description}
             </p>
 
             <div className="flex justify-end mt-4">
-              <a
-                href="#"
-                className="text-lg font-medium text-blue-600 dark:text-blue-300"
+              <p
+                className="text-lg font-pop font-medium text-blue-600 dark:text-blue-300"
                 tabIndex="0"
                 role="link"
               >
                 {data.name}
-              </a>
+              </p>
             </div>
           </div>
         ))}
