@@ -27,7 +27,7 @@ const Login = () => {
     <div className="max-w-7xl mx-auto my-12  rounded-tl-[60px] rounded-tr-[60px] rounded-bl-[60px] rounded-br-[60px] bg-[#07332F]">
       <div className="flex p-8 min-h-screen">
         <div
-          className="hidden bg-cover lg:block lg:w-1/2 rounded-tl-[60px] rounded-bl-[60px] rounded-br-[60px] rounded-tr-[60px] border-[#F2871D] border-r-4"
+          className="hidden bg-cover bg-center lg:block lg:w-1/2 rounded-tl-[60px] rounded-bl-[60px] rounded-br-[60px] rounded-tr-[60px] border-[#F2871D] border-r-4"
           style={{
             backgroundImage: `url(${loginBgGif})`,
           }}

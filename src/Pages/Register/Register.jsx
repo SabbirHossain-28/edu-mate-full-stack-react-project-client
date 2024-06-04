@@ -227,7 +227,7 @@ const Register = () => {
                     type="submit"
                     className="inline-block rounded-lg bg-[#F2871D] px-5 py-2 text-sm font-medium text-white"
                   >
-                    Log in
+                    Register
                   </button>
                 </div>
               </form>
