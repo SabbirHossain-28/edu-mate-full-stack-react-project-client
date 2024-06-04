@@ -260,7 +260,7 @@ const Login = () => {
               <form onSubmit={handleValidateCaptcha}>
                 <ReCAPTCHA
                   className="flex justify-center mb-4"
-                  sitekey={import.meta.env}
+                  sitekey={import.meta.env.VITE_GOOGLE_CAPTCHA_SITEKEY}
                   onChange={verifyChecked}
                 />
                 <div className="flex justify-center">

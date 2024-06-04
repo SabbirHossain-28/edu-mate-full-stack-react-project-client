@@ -1,24 +1,55 @@
 import { useForm } from "react-hook-form";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { SiSololearn } from "react-icons/si";
 import registerbg from "../../assets/images/registerbg/register.gif";
+import useAuth from "../../Hooks/useAuth";
+import useAxiosCommon from "../../Hooks/useAxiosCommon";
+import Swal from "sweetalert2";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState(null);
+  const { createUser, userLogOut, updateUser } = useAuth();
+  const axiosCommon = useAxiosCommon();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    setFormData(data);
-    // setIsModalOpen(true);
+  const onSubmit = async (data) => {
+    const imageFile = { image: data.photo[0] };
+    const res = await axiosCommon.post(image_hosting_api, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+    if (res.data.success) {
+      createUser(data?.email, data?.password).then((userCredential) => {
+        if (userCredential) {
+          updateUser(data?.name, res?.data?.data?.display_url).then(() => {
+            Swal.fire({
+              title: "Registration Successfull",
+              text: `Welcome! ${data?.name} You are now member of EduMate.Please login to explore`,
+              icon: "success",
+              confirmButtonColor: "#3085d6",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                userLogOut();
+                navigate("/login");
+              }
+            });
+          });
+        }
+      });
+    }
   };
-  console.log(formData);
 
   const handlePasswordShowToggler = () => {
     setShowPassword(!showPassword);

@@ -35,7 +35,7 @@ const AuthContextProvider = ({ children }) => {
     });
   };
 
-  const userLogOut = (auth) => {
+  const userLogOut = () => {
     setLoading(true);
     return signOut(auth);
   };
