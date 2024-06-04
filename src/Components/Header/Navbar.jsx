@@ -1,7 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import { SiSololearn } from "react-icons/si";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, userLogOut } = useAuth();
   const navLinks = (
     <>
       <li>
@@ -15,6 +18,18 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const handleUserLogOut = () => {
+    userLogOut().then(() => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `Bye Bye ${user?.displayName}! Come back soon`,
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    });
+  };
   return (
     <>
       <div className="navbar bg-[#07332F]">
@@ -81,13 +96,25 @@ const Navbar = () => {
               className="mt-3 z-[1]  p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 font-poppin"
             >
               <li>
-                <p className="justify-between">Profile</p>
+                <p className="justify-between">
+                  {user ? user?.displayName : "User not available"}
+                </p>
               </li>
               <li>
                 <Link>Dashboard</Link>
               </li>
               <li>
-                <button>Logout</button>
+                <button
+                  disabled={!user}
+                  className={`bg-red-600 text-white ${
+                    user
+                      ? "hover:text-red-600"
+                      : "opacity-50 cursor-not-allowed"
+                  }`}
+                  onClick={handleUserLogOut}
+                >
+                  Logout
+                </button>
               </li>
             </ul>
           </div>
