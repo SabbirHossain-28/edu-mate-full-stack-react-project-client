@@ -1,13 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import loginBgGif from "../../assets/images/loginbg/user-login.gif";
 import { SiSololearn } from "react-icons/si";
+import useAuth from "../../Hooks/useAuth";
+import ReCAPTCHA from "react-google-recaptcha";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const [formData, setFormData] = useState(null);
+  const { loginUser } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
   const {
     register,
     handleSubmit,
@@ -16,9 +27,47 @@ const Login = () => {
 
   const onSubmit = (data) => {
     setFormData(data);
-    // setIsModalOpen(true);
+    setIsModalOpen(true);
   };
-  console.log(formData);
+
+  const handleValidateCaptcha = async (e) => {
+    e.preventDefault();
+    if (isVerified) {
+      try {
+        const userCredential = await loginUser(
+          formData.email,
+          formData.password
+        );
+        if (userCredential) {
+          setIsModalOpen(false);
+          Swal.fire({
+            title: "Login Successfull",
+            text: "You are successfully login EduMate",
+            icon: "success",
+          });
+          navigate(from, { replace: true });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `Something went wrong!${error.message}`,
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please verify the captcha!",
+      });
+    }
+  };
+
+  const verifyChecked = (response) => {
+    if (response) {
+      setIsVerified(true);
+    }
+  };
 
   const handlePasswordShowToggler = () => {
     setShowPassword(!showPassword);
@@ -199,13 +248,33 @@ const Login = () => {
                       </clipPath>
                     </defs>
                   </svg>
-
                   <span>Log in with Google</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
+        {isModalOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+            <div className="modal-box rounded p-8">
+              <form onSubmit={handleValidateCaptcha}>
+                <ReCAPTCHA
+                  className="flex justify-center mb-4"
+                  sitekey={import.meta.env}
+                  onChange={verifyChecked}
+                />
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    className="border py-2 px-3 rounded-lg bg-[#cd9035b3] text-white "
+                  >
+                    Validate Captcha
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
