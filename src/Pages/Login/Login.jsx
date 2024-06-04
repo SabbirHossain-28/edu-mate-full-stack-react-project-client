@@ -13,7 +13,7 @@ const Login = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [formData, setFormData] = useState(null);
-  const { loginUser,user } = useAuth();
+  const { loginUser} = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,9 +39,10 @@ const Login = () => {
           formData.password
         );
         if (userCredential) {
+          console.log(userCredential.user);
           setIsModalOpen(false);
           Swal.fire({
-            title: `Welcome! ${user?.displayName}`,
+            title: `Welcome! ${userCredential?.user?.displayName}`,
             text: "You are successfully login EduMate",
             icon: "success",
           });

@@ -26,7 +26,7 @@ const Navbar = () => {
         icon: "success",
         title: `Bye Bye ${user?.displayName}! Come back soon`,
         showConfirmButton: false,
-        timer: 1000,
+        timer: 1500,
       });
     });
   };
