@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import loginBgGif from "../../assets/images/loginbg/user-login.gif";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import { SiSololearn } from "react-icons/si";
+import registerbg from "../../assets/images/registerbg/register.gif";
 
-const Login = () => {
+const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(null);
   const {
@@ -27,20 +27,21 @@ const Login = () => {
     <div className="max-w-7xl mx-auto my-12  rounded-tl-[60px] rounded-tr-[60px] rounded-bl-[60px] rounded-br-[60px] bg-[#07332F]">
       <div className="flex p-8 min-h-screen">
         <div
-          className="hidden bg-cover lg:block lg:w-1/2 rounded-tl-[60px] rounded-bl-[60px] rounded-br-[60px] rounded-tr-[60px] border-[#F2871D] border-r-4"
+          className="hidden bg-cover bg-center lg:block lg:w-1/2 rounded-tl-[60px] rounded-bl-[60px] rounded-br-[60px] rounded-tr-[60px] border-[#F2871D] border-r-4"
           style={{
-            backgroundImage: `url(${loginBgGif})`,
+            backgroundImage: `url(${registerbg})`,
           }}
         >
-          <div className="flex h-full items-end py-10 px-10 bg-gray-800 bg-opacity-60 rounded-tl-[60px] rounded-br-[60px] rounded-tr-[60px] rounded-bl-[60px] ">
+          <div className="flex h-full items-center py-10 px-10 bg-gray-800 bg-opacity-60 rounded-tl-[60px] rounded-br-[60px] rounded-tr-[60px] rounded-bl-[60px] ">
             <div className="text-center">
               <h4 className="text-5xl font-pop  font-bold text-[#F2871D]">
-                Welcome Back to EduMate!
+                Join EduMate Today!!
               </h4>
               <p className="max-w-2xl mt-3 text-gray-200 font-poppin">
-                Login to access your personalized educational resources, track
-                your progress, and connect with our community of learners and
-                educators. Lets continue your learning journey together!
+                Create your account to unlock a world of educational resources,
+                personalized learning experiences, and connect with a vibrant
+                community of educators and learners. Your journey to knowledge
+                starts here!
               </p>
             </div>
           </div>
@@ -53,12 +54,43 @@ const Login = () => {
                 <SiSololearn className="text-[#F2871D] text-5xl"></SiSololearn>
               </div>
               <p className="mt-3 text-gray-500 dark:text-gray-300 font-poppin">
-                Log in to access your account
+                Register your account with us
               </p>
             </div>
 
             <div className="mt-4">
               <form onSubmit={handleSubmit(onSubmit)} className="font-inter">
+                <div className="relative flex items-center mt-8">
+                  <span className="absolute">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6 mx-3 text-gray-300 "
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                  </span>
+
+                  <input
+                    type="text"
+                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:bg-gray-900 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    placeholder="Username"
+                    {...register("name", { required: "UserName is required" })}
+                  />
+                </div>
+                {errors.name && (
+                  <span className="text-red-500 text-sm">
+                    {errors.name.message}
+                  </span>
+                )}
+
                 <div className="relative flex items-center mt-6">
                   <span className="absolute">
                     <svg
@@ -88,6 +120,45 @@ const Login = () => {
                     {errors.email.message}
                   </span>
                 )}
+
+                <div>
+                  <label
+                    htmlFor="dropzone-file"
+                    className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6 text-gray-300 dark:text-gray-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                      />
+                    </svg>
+
+                    <h2 className="mx-3 text-gray-400">Profile Photo</h2>
+
+                    <input
+                      id="dropzone-file"
+                      type="file"
+                      className="hidden"
+                      {...register("photo", {
+                        required: "Profile photo is required",
+                      })}
+                    />
+                  </label>
+                </div>
+                {errors.photo && (
+                  <span className="text-red-500 text-sm">
+                    {errors.photo.message}
+                  </span>
+                )}
+
                 <div className="relative flex items-center mt-4">
                   <span className="absolute">
                     <svg
@@ -146,9 +217,9 @@ const Login = () => {
                 )}
                 <div className="flex items-center justify-between mt-6">
                   <p className="text-sm text-gray-500">
-                    No account?
-                    <Link to="/register" className="underline">
-                      Register account
+                    Already have an account?
+                    <Link to="/login" className="underline">
+                      Login
                     </Link>
                   </p>
 
@@ -211,4 +282,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
