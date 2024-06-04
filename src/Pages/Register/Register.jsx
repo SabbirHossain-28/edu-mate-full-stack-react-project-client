@@ -33,16 +33,26 @@ const Register = () => {
     if (res.data.success) {
       createUser(data?.email, data?.password).then((userCredential) => {
         if (userCredential) {
-          updateUser(data?.name, res?.data?.data?.display_url).then(() => {
-            Swal.fire({
-              title: "Registration Successfull",
-              text: `Welcome! ${data?.name} You are now member of EduMate.Please login to explore`,
-              icon: "success",
-              confirmButtonColor: "#3085d6",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                userLogOut();
-                navigate("/login");
+          updateUser(data?.name, res.data?.data?.display_url).then(() => {
+            const userData = {
+              name: data?.name,
+              email: data?.email,
+              image: res.data?.data?.display_url,
+              role: "Student",
+            };
+            axiosCommon.post("/users", userData).then((res) => {
+              if (res.data.insertedId) {
+                Swal.fire({
+                  title: "Registration Successfull",
+                  text: `Welcome! ${data?.name} You are now member of EduMate.Please login to explore`,
+                  icon: "success",
+                  confirmButtonColor: "#3085d6",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    userLogOut();
+                    navigate("/login");
+                  }
+                });
               }
             });
           });
