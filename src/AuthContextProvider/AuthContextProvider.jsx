@@ -9,6 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../FirebaseConfig/firebase.config";
+import useAxiosCommon from "../Hooks/useAxiosCommon";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -16,6 +17,7 @@ const auth = getAuth(app);
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosCommon = useAxiosCommon();
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -42,13 +44,26 @@ const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
+      if (currentUser) {
+        const userInfo = { email: currentUser?.email };
+        axiosCommon.post("/jwt", userInfo).then((res) => {
+          if (res?.data?.token) {
+            localStorage.setItem("access-token", res?.data?.token);
+            setUser(currentUser);
+            setLoading(false);
+          }
+        });
+      } else {
+        localStorage.removeItem("access-token");
+        setUser(null);
+        setLoading(false);
+      }
     });
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [axiosCommon]);
+
   const authInfo = {
     user,
     createUser,

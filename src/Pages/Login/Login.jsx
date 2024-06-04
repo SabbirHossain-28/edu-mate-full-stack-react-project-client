@@ -39,7 +39,6 @@ const Login = () => {
           formData.password
         );
         if (userCredential) {
-          console.log(userCredential.user);
           setIsModalOpen(false);
           Swal.fire({
             title: `Welcome! ${userCredential?.user?.displayName}`,
