@@ -50,6 +50,7 @@ const AuthContextProvider = ({ children }) => {
           if (res?.data?.token) {
             localStorage.setItem("access-token", res?.data?.token);
             setUser(currentUser);
+            console.log(currentUser);
             setLoading(false);
           }
         });

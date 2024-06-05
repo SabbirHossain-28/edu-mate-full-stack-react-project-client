@@ -37,6 +37,7 @@ const Register = () => {
             const userData = {
               name: data?.name,
               email: data?.email,
+              phone:data?.phone,
               image: res.data?.data?.display_url,
               role: "Student",
             };
@@ -197,6 +198,42 @@ const Register = () => {
                 {errors.photo && (
                   <span className="text-red-500 text-sm">
                     {errors.photo.message}
+                  </span>
+                )}
+
+                <div className="relative flex items-center mt-6">
+                  <span className="absolute">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 10v1a11 11 0 0011 11h1l2-2a2 2 0 012-2h3a2 2 0 002-2v-3a2 2 0 00-2-2h-3a2 2 0 00-2 2v2l-2 2a9 9 0 01-9-9l2-2h2a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v3l-2 2z"
+                      />
+                    </svg>
+                  </span>
+                  <input
+                    type="tel"
+                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    placeholder="Phone number"
+                    {...register('phone', {
+                      required: 'Phone number is required',
+                      pattern: {
+                        value: /^[0-9]*$/,
+                        message: 'Only numbers are allowed',
+                      },
+                    })}
+                  />
+                </div>
+                {errors.phone && (
+                  <span className="text-red-500 text-sm">
+                    {errors.phone.message}
                   </span>
                 )}
 
