@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      colors:{
+        "base-green":"#07332F",
+        "base-orange":"#F2871D",
+      },
       fontFamily:{
         "raleWay":"'Raleway', 'sans-serif'",
         "poppin":"'Poppins', 'sans-serif'",
