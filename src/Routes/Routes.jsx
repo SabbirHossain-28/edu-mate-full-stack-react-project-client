@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
 import StudentProfile from "../Pages/Dashboard/StudentProfile/StudentProfile";
+import TeachOn from "../Pages/TeachOn/TeachOn";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path:"/teachOn",
+        element:<TeachOn></TeachOn>
       },
       {
         path: "/login",
