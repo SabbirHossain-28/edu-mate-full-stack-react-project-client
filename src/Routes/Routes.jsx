@@ -6,6 +6,7 @@ import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
+import StudentProfile from "../Pages/Dashboard/StudentProfile/StudentProfile";
 
 export const router = createBrowserRouter([
   {
@@ -37,7 +38,11 @@ export const router = createBrowserRouter([
         {
             path:"myClasses",
             element:<MyClasses></MyClasses>
-        }
+        },
+        {
+            path:"studentProfile",
+            element:<StudentProfile></StudentProfile>
+        },
     ]
   },
 ]);

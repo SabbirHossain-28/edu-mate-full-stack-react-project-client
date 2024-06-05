@@ -1,11 +1,12 @@
 import { SiSololearn, SiGoogleclassroom } from "react-icons/si";
+import { FaUserGraduate } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
     <div className="flex">
       <div className="w-72 min-h-screen bg-[#07332F]">
-        <div className="flex items-center justify-center mt-4">
+        <div className="flex items-center justify-center my-4">
           <SiSololearn className="text-[#F2871D] text-3xl"></SiSololearn>
           <h2 className="text-3xl text-[#F2871D] font-pop font-bold ">
             EduMate
@@ -106,9 +107,20 @@ const DashboardLayout = () => {
         </ul> */}
         <ul className="menu">
           <li>
-            <NavLink className="text-lg text-white font-medium" to="/dashboard/myClasses">
+            <NavLink
+              className="text-lg text-white font-medium"
+              to="/dashboard/myClasses"
+            >
               <SiGoogleclassroom className="text-xl"></SiGoogleclassroom>My
-              enroll class
+              Enroll Class
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="text-lg text-white font-medium"
+              to="/dashboard/studentProfile"
+            >
+              <FaUserGraduate className="text-xl"></FaUserGraduate>My Profile
             </NavLink>
           </li>
         </ul>
