@@ -8,6 +8,7 @@ import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
 import StudentProfile from "../Pages/Dashboard/StudentProfile/StudentProfile";
 import TeachOn from "../Pages/TeachOn/TeachOn";
+import AllClasses from "../Pages/AllClasses/AllClasses";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path:"/teachOn",
         element:<TeachOn></TeachOn>
+      },
+      {
+        path:"/allClasses",
+        element:<AllClasses></AllClasses>
       },
       {
         path: "/login",
