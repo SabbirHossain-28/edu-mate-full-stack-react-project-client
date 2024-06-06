@@ -20,12 +20,16 @@ export const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path:"/teachOn",
-        element:<TeachOn></TeachOn>
+        path: "/teachOn",
+        element: (
+          <PrivateRoute>
+            <TeachOn></TeachOn>
+          </PrivateRoute>
+        ),
       },
       {
-        path:"/allClasses",
-        element:<AllClasses></AllClasses>
+        path: "/allClasses",
+        element: <AllClasses></AllClasses>,
       },
       {
         path: "/login",
@@ -44,15 +48,15 @@ export const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
-    children:[
-        {
-            path:"myClasses",
-            element:<MyClasses></MyClasses>
-        },
-        {
-            path:"studentProfile",
-            element:<StudentProfile></StudentProfile>
-        },
-    ]
+    children: [
+      {
+        path: "myClasses",
+        element: <MyClasses></MyClasses>,
+      },
+      {
+        path: "studentProfile",
+        element: <StudentProfile></StudentProfile>,
+      },
+    ],
   },
 ]);
