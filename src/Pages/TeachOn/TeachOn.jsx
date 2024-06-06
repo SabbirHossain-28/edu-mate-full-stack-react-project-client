@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Container from "../../Shared/Container/Container";
 import SectionHeader from "../../Shared/SectionHeader/SectionHeader";
 import useAuth from "../../Hooks/useAuth";
@@ -6,17 +6,20 @@ import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { getUploadedImgUrl } from "../../Utilities/APIutils/imageHostingapi";
+import Swal from "sweetalert2";
+import { ImSpinner9 } from "react-icons/im";
 
 const TeachOn = () => {
   const { user } = useAuth();
   const axiosCommon = useAxiosCommon();
   const [profileImage, setProfileImage] = useState("");
   const [isImageChanged, setIsImageChanged] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
+    reset,
   } = useForm();
 
   const { data: userData = {} } = useQuery({
@@ -32,24 +35,60 @@ const TeachOn = () => {
     if (userData) {
       setProfileImage(userData?.image);
     }
-  }, [userData, setValue]);
+  }, [userData]);
+  useEffect(() => {
+    return () => {
+      if (profileImage && isImageChanged) {
+        URL.revokeObjectURL(profileImage);
+      }
+    };
+  }, [profileImage, isImageChanged]);
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (applicationData) => {
+      const res = await axiosCommon.post("/applications", applicationData);
+      return res.data;
+    },
+  });
 
   const onSubmit = async (data) => {
-    let imageURL=profileImage;
-    if(isImageChanged){
-      const imageFile=data.profileImage[0];
-      imageURL=await getUploadedImgUrl(imageFile);
+    setLoading(true);
+    let imageURL = profileImage;
+    if (isImageChanged) {
+      const imageFile = data.profileImage[0];
+      imageURL = await getUploadedImgUrl(imageFile);
     }
-    const applicationData={
-      userId:userData._id,
-      userEmail:userData.email,
-      experience:data.experience,
-      title:data.title,
-      category:data.category,
-      userProfileImage:imageURL,
-      status:"Pending",
-    }
-    console.log(applicationData);
+    const applicationData = {
+      userId: userData._id,
+      userEmail: userData.email,
+      userName: userData.name,
+      experience: data.experience,
+      title: data.title,
+      category: data.category,
+      userProfileImage: imageURL,
+      status: "Pending",
+    };
+    await mutateAsync(applicationData, {
+      onSuccess: (data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Application Submitted",
+            text: "Your application has been submitted for review.",
+            icon: "success",
+          });
+          setLoading(false);
+          reset();
+        }
+      },
+      onError: (error) => {
+        console.error("Error submitting application", error);
+        Swal.fire(
+          "Error",
+          "There was an error submitting your application",
+          "error"
+        );
+      },
+    });
   };
   return (
     <Container>
@@ -91,18 +130,13 @@ const TeachOn = () => {
                     setIsImageChanged(true);
                   }}
                 />
-                {/* {errors.profileImage && (
-                  <span className="text-red-500 text-sm">
-                    {errors.profileImage.message}
-                  </span>
-                )} */}
               </div>
               <div>
                 {profileImage && (
                   <img
                     src={profileImage}
                     alt="Profile Preview"
-                    className="mt-2 w-24 h-24 object-cover rounded-xl"
+                    className="mt-2 w-20 h-20 object-cover rounded-xl"
                   />
                 )}
               </div>
@@ -129,12 +163,14 @@ const TeachOn = () => {
                 className={`w-full px-3 py-2 border ${
                   errors.experience ? "border-red-500" : "border-gray-300"
                 } rounded-lg`}
-                value={""}
+                defaultValue=""
                 {...register("experience", {
                   required: "Experience level is required",
                 })}
               >
-                <option disabled value="">Select your experience level</option>
+                <option value="" disabled>
+                  Select your experience level
+                </option>
                 <option value="beginner">Beginner</option>
                 <option value="mid-level">Mid-level</option>
                 <option value="experienced">Experienced</option>
@@ -173,10 +209,12 @@ const TeachOn = () => {
                 className={`w-full px-3 py-2 border ${
                   errors.category ? "border-red-500" : "border-gray-300"
                 } rounded-lg`}
-                value={""}
+                defaultValue=""
                 {...register("category", { required: "Category is required" })}
               >
-                <option disabled value="">Select a category</option>
+                <option value="" disabled>
+                  Select a category
+                </option>
                 <option value="web development">Web Development</option>
                 <option value="digital marketing">Digital Marketing</option>
                 <option value="graphic design">Graphic Design</option>
@@ -192,12 +230,14 @@ const TeachOn = () => {
 
             <button
               type="submit"
-              className="w-full py-3 mt-4 text-white bg-blue-500 rounded-lg hover:bg-blue-700"
+              className="w-full py-3 mt-4 text-center text-white bg-base-green rounded-lg hover:bg-blue-700"
             >
-              Submit for Review
+              {loading ? (
+                <ImSpinner9 className="animate-spin text-2xl text-base-orange m-auto" />
+              ) : (
+                "Submit for Review"
+              )}
             </button>
-
-            {/* {submitError && <p className="text-red-500 text-center mt-4">{submitError}</p>} */}
           </form>
         </div>
       </div>
