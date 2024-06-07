@@ -1,8 +1,13 @@
-import { SiSololearn, SiGoogleclassroom } from "react-icons/si";
-import { FaList, FaUserGraduate } from "react-icons/fa";
+import { SiSololearn} from "react-icons/si";
+import { ImUserTie } from "react-icons/im";
 import { Outlet } from "react-router-dom";
 import useRole from "../../Hooks/useRole";
 import NavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/NavlinkMenu";
+import TeacherNavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/TeacherNavlinkMenu/TeacherNavlinkMenu";
+import AdminNavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/AdminNavlinkMenu/AdminNavlinkMenu";
+import StudentNavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/StudentNavlinkMenu/StudentNavlinkMenu";
+import { FaList } from "react-icons/fa";
+
 
 const DashboardLayout = () => {
   const [role] = useRole();
@@ -33,12 +38,12 @@ const DashboardLayout = () => {
                 EduMate
               </h2>
             </div>
+            <li>{role === "Admin" && <AdminNavlinkMenu></AdminNavlinkMenu>}</li>
             <li>
-              <NavlinkMenu
-                label={"My Enroll Class"}
-                address={"/dashboard/myClasses"}
-                icon={SiGoogleclassroom}
-              ></NavlinkMenu>
+              {role === "Teacher" && <TeacherNavlinkMenu></TeacherNavlinkMenu>}
+            </li>
+            <li>
+              {role === "Student" && <StudentNavlinkMenu></StudentNavlinkMenu>}
             </li>
           </div>
           <div>
@@ -46,7 +51,7 @@ const DashboardLayout = () => {
               <NavlinkMenu
                 label={"My Profile"}
                 address={"/dashboard/userProfile"}
-                icon={FaUserGraduate}
+                icon={ImUserTie}
               ></NavlinkMenu>
             </li>
           </div>
