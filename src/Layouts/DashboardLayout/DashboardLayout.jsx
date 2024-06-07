@@ -2,9 +2,10 @@ import { SiSololearn, SiGoogleclassroom } from "react-icons/si";
 import { FaList, FaUserGraduate } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useRole from "../../Hooks/useRole";
+import NavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/NavlinkMenu";
 
 const DashboardLayout = () => {
-  const [role]=useRole();
+  const [role] = useRole();
   console.log(role);
   return (
     <div className="drawer lg:drawer-open">
@@ -25,28 +26,25 @@ const DashboardLayout = () => {
           className="drawer-overlay"
         ></label>
         <ul className="menu p-4 w-80 min-h-full bg-base-green text-base-content">
-        <div className="flex items-center justify-center my-4">
-          <SiSololearn className="text-[#F2871D] text-3xl"></SiSololearn>
-          <h2 className="text-3xl text-[#F2871D] font-pop font-bold ">
-            EduMate
-          </h2>
-        </div>
+          <div className="flex items-center justify-center my-4">
+            <SiSololearn className="text-[#F2871D] text-3xl"></SiSololearn>
+            <h2 className="text-3xl text-[#F2871D] font-pop font-bold ">
+              EduMate
+            </h2>
+          </div>
           <li>
-            <NavLink
-              className="text-lg text-white font-medium"
-              to="/dashboard/myClasses"
-            >
-              <SiGoogleclassroom className="text-xl"></SiGoogleclassroom>My
-              Enroll Class
-            </NavLink>
+            <NavlinkMenu
+              label={"My Enroll Class"}
+              address={"/dashboard/myClasses"}
+              icon={SiGoogleclassroom}
+            ></NavlinkMenu>
           </li>
           <li>
-            <NavLink
-              className="text-lg text-white font-medium"
-              to="/dashboard/studentProfile"
-            >
-              <FaUserGraduate className="text-xl"></FaUserGraduate>My Profile
-            </NavLink>
+            <NavlinkMenu
+              label={"My Profile"}
+              address={"/dashboard/studentProfile"}
+              icon={FaUserGraduate}
+            ></NavlinkMenu>
           </li>
         </ul>
       </div>
