@@ -1,6 +1,6 @@
 import { SiSololearn, SiGoogleclassroom } from "react-icons/si";
 import { FaList, FaUserGraduate } from "react-icons/fa";
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import useRole from "../../Hooks/useRole";
 import NavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/NavlinkMenu";
 
@@ -42,7 +42,7 @@ const DashboardLayout = () => {
             </li>
           </div>
           <div>
-          <li>
+            <li>
               <NavlinkMenu
                 label={"My Profile"}
                 address={"/dashboard/userProfile"}
