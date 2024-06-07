@@ -37,8 +37,7 @@ const DashboardLayout = () => {
               </h2>
             </div>
             <li>
-              {/* {role === "Admin" && <AdminNavlinkMenu></AdminNavlinkMenu>} */}
-              <AdminNavlinkMenu></AdminNavlinkMenu>
+              {role === "Admin" && <AdminNavlinkMenu></AdminNavlinkMenu>}
             </li>
             <li>
               {role === "Teacher" && <TeacherNavlinkMenu></TeacherNavlinkMenu>}
