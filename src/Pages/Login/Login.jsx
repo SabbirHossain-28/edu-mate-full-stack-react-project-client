@@ -23,6 +23,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
 
   const onSubmit = (data) => {
@@ -53,6 +54,8 @@ const Login = () => {
           title: "Oops...",
           text: `Something went wrong!${error.message}`,
         });
+        setIsModalOpen(false)
+        reset()
       }
     } else {
       Swal.fire({
