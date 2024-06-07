@@ -45,7 +45,7 @@ const DashboardLayout = () => {
           <li>
               <NavlinkMenu
                 label={"My Profile"}
-                address={"/dashboard/studentProfile"}
+                address={"/dashboard/userProfile"}
                 icon={FaUserGraduate}
               ></NavlinkMenu>
             </li>
