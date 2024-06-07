@@ -5,7 +5,7 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
-import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
+import MyClasses from "../Pages/Dashboard/StudentRoutes/MyClasses/MyClasses";
 import StudentProfile from "../Pages/Dashboard/UserProfile/UserProfile";
 import TeachOn from "../Pages/TeachOn/TeachOn";
 import AllClasses from "../Pages/AllClasses/AllClasses";
@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "myClasses",
+        path: "enrollClasses",
         element: <MyClasses></MyClasses>,
       },
       {
