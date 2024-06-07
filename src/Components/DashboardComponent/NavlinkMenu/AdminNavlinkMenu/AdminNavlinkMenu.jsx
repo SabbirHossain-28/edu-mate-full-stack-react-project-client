@@ -6,9 +6,9 @@ import { SiGoogleclassroom } from "react-icons/si";
 const AdminNavlinkMenu = () => {
     return (
         <>
-        <NavlinkMenu label={"Teacher Request"} address={"/dasshboard/teacherRequest"} icon={TbGitPullRequest}></NavlinkMenu>
-        <NavlinkMenu label={"All Users"} address={"/dasshboard/allUsers"} icon={FaUsersGear}></NavlinkMenu>
-        <NavlinkMenu label={"All Classes"} address={"/dasshboard/classes"} icon={SiGoogleclassroom}></NavlinkMenu>
+        <NavlinkMenu label={"Teacher Request"} address={"/dashboard/teacherRequest"} icon={TbGitPullRequest}></NavlinkMenu>
+        <NavlinkMenu label={"All Users"} address={"/dashboard/allUsers"} icon={FaUsersGear}></NavlinkMenu>
+        <NavlinkMenu label={"All Classes"} address={"/dashboard/classes"} icon={SiGoogleclassroom}></NavlinkMenu>
         </>
     );
 };

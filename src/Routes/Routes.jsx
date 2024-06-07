@@ -9,6 +9,7 @@ import MyClasses from "../Pages/Dashboard/StudentRoutes/MyClasses/MyClasses";
 import StudentProfile from "../Pages/Dashboard/UserProfile/UserProfile";
 import TeachOn from "../Pages/TeachOn/TeachOn";
 import AllClasses from "../Pages/AllClasses/AllClasses";
+import AllUsers from "../Pages/Dashboard/AdminRoutes/AllUsers/AllUsers";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
       {
         path: "userProfile",
         element: <StudentProfile></StudentProfile>,
+      },
+      {
+        path: "allUsers",
+        element: <AllUsers></AllUsers>,
       },
     ],
   },
