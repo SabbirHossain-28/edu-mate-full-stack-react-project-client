@@ -25,27 +25,31 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu p-4 w-80 min-h-full bg-base-green text-base-content">
-          <div className="flex items-center justify-center my-4">
-            <SiSololearn className="text-[#F2871D] text-3xl"></SiSololearn>
-            <h2 className="text-3xl text-[#F2871D] font-pop font-bold ">
-              EduMate
-            </h2>
+        <ul className="menu justify-between p-4 w-72 min-h-full bg-base-green text-base-content">
+          <div>
+            <div className="flex items-center justify-center my-4">
+              <SiSololearn className="text-[#F2871D] text-3xl"></SiSololearn>
+              <h2 className="text-3xl text-[#F2871D] font-pop font-bold ">
+                EduMate
+              </h2>
+            </div>
+            <li>
+              <NavlinkMenu
+                label={"My Enroll Class"}
+                address={"/dashboard/myClasses"}
+                icon={SiGoogleclassroom}
+              ></NavlinkMenu>
+            </li>
           </div>
+          <div>
           <li>
-            <NavlinkMenu
-              label={"My Enroll Class"}
-              address={"/dashboard/myClasses"}
-              icon={SiGoogleclassroom}
-            ></NavlinkMenu>
-          </li>
-          <li>
-            <NavlinkMenu
-              label={"My Profile"}
-              address={"/dashboard/studentProfile"}
-              icon={FaUserGraduate}
-            ></NavlinkMenu>
-          </li>
+              <NavlinkMenu
+                label={"My Profile"}
+                address={"/dashboard/studentProfile"}
+                icon={FaUserGraduate}
+              ></NavlinkMenu>
+            </li>
+          </div>
         </ul>
       </div>
     </div>
