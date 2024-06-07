@@ -1,4 +1,4 @@
-import { SiSololearn} from "react-icons/si";
+import { SiSololearn } from "react-icons/si";
 import { ImUserTie } from "react-icons/im";
 import { Outlet } from "react-router-dom";
 import useRole from "../../Hooks/useRole";
@@ -7,7 +7,6 @@ import TeacherNavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/
 import AdminNavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/AdminNavlinkMenu/AdminNavlinkMenu";
 import StudentNavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/StudentNavlinkMenu/StudentNavlinkMenu";
 import { FaList } from "react-icons/fa";
-
 
 const DashboardLayout = () => {
   const [role] = useRole();
@@ -37,7 +36,10 @@ const DashboardLayout = () => {
                 EduMate
               </h2>
             </div>
-            <li>{role === "Admin" && <AdminNavlinkMenu></AdminNavlinkMenu>}</li>
+            <li>
+              {/* {role === "Admin" && <AdminNavlinkMenu></AdminNavlinkMenu>} */}
+              <AdminNavlinkMenu></AdminNavlinkMenu>
+            </li>
             <li>
               {role === "Teacher" && <TeacherNavlinkMenu></TeacherNavlinkMenu>}
             </li>
