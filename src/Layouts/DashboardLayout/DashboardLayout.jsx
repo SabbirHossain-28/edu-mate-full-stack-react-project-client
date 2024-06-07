@@ -1,8 +1,11 @@
 import { SiSololearn, SiGoogleclassroom } from "react-icons/si";
 import { FaList, FaUserGraduate } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
+import useRole from "../../Hooks/useRole";
 
 const DashboardLayout = () => {
+  const [role]=useRole();
+  console.log(role);
   return (
     // <div className="flex">
     //   <div className="w-72 min-h-screen bg-[#07332F]">

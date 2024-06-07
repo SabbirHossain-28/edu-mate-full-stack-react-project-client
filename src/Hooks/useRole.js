@@ -6,7 +6,7 @@ const useRole=()=>{
     const {user,loading}=useAuth();
     const axiosCommon=useAxiosCommon();
 
-    const {data:role,isLoading}=useQuery({
+    const {data:role="",isLoading}=useQuery({
         queryKey:["role"],
         enabled: !loading && !!user?.email,
         queryFn:async()=>{
