@@ -11,7 +11,6 @@ import { FaList } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const [role] = useRole();
-  console.log(role);
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

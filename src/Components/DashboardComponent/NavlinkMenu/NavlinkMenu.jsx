@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const NavlinkMenu = ({ label, address, icon: Icon }) => {
-    console.log(Icon);
   return (
     <NavLink
       className="text-lg text-white font-medium flex items-center gap-2"
