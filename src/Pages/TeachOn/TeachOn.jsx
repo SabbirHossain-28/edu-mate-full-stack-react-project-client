@@ -103,9 +103,9 @@ const TeachOn = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/");
+        return;
       }
     });
-    return;
   }
 
   return (
