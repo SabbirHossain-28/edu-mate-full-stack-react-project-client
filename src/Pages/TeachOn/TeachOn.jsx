@@ -9,7 +9,6 @@ import { getUploadedImgUrl } from "../../Utilities/APIutils/imageHostingapi";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
-
 const TeachOn = () => {
   const { user } = useAuth();
   const axiosCommon = useAxiosCommon();
@@ -32,6 +31,17 @@ const TeachOn = () => {
     },
     enabled: !!user?.email,
   });
+  const { data: applicationData = {},refetch } = useQuery({
+    queryKey: ["appilcationData", user?.email],
+    queryFn: async () => {
+      const res = await axiosCommon.get(`/applications/${user?.email}`);
+      return res.data;
+    },
+    enabled: !!user?.email,
+  });
+
+  console.log(applicationData);
+  // console.log(userData);
 
   useEffect(() => {
     if (userData) {
@@ -78,6 +88,7 @@ const TeachOn = () => {
             text: "Your application has been submitted for review.",
             icon: "success",
           });
+          refetch()
           setLoading(false);
           reset();
         }
@@ -108,6 +119,37 @@ const TeachOn = () => {
     });
   }
 
+  if (applicationData?.status === "Pending") {
+    return (
+      <div className="bg-slate-200 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-5xl font-pop font-bold mb-4">
+            Teacher request is successfully submited
+          </h2>
+          <p className="text-2xl font-poppin">
+            Your given information and request for a teacher post is submitted
+            successfully. Please wait for admin approval
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (userData?.role === "Teacher") {
+    return (
+      <div className="bg-slate-200 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-5xl font-pop font-bold mb-4">
+            Congratulations!{userData?.name}
+          </h2>
+          <p className="text-2xl font-poppin">
+            You have been approved as a Teacher.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Container>
       <div className="pt-4">
@@ -117,9 +159,17 @@ const TeachOn = () => {
             "EduMate allows you to apply for a teaching position by filling out the required form. Share your details, choose your experience level, and select the category you wish to teach. Submit your application for review, and our admin team will process your request. If approved, you'll join our community as a teacher."
           }
         ></SectionHeader>
+        {applicationData?.status === "Rejected" && (
+          <div className="text-center mt-4">
+            <p className="text-red-500 font-raleWay font-bold">
+              Sorry! Your first request for wanted to be a teacher in our
+              platform is rejected by Admin....You can try for another request.
+            </p>
+          </div>
+        )}
       </div>
-      <div>
-        <div className="max-w-3xl mx-auto mt-10 p-5 border rounded-lg shadow-lg">
+      <div className="pb-12">
+        <div className="max-w-4xl mx-auto mt-10 p-5 border border-gray-600 rounded-lg shadow-xl">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block mb-2 text-sm font-bold text-gray-700">
@@ -245,8 +295,30 @@ const TeachOn = () => {
                 </span>
               )}
             </div>
-
-            <button
+            {applicationData?.status === "Rejected" ? (
+              <button
+                type="submit"
+                className="w-full py-3 mt-4 text-center text-white bg-base-green rounded-lg hover:bg-blue-700"
+              >
+                {loading ? (
+                  <ImSpinner9 className="animate-spin text-2xl text-base-orange m-auto" />
+                ) : (
+                  "Request to another"
+                )}
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="w-full py-3 mt-4 text-center text-white bg-base-green rounded-lg hover:bg-blue-700"
+              >
+                {loading ? (
+                  <ImSpinner9 className="animate-spin text-2xl text-base-orange m-auto" />
+                ) : (
+                  "Submit for Review"
+                )}
+              </button>
+            )}
+            {/* <button
               type="submit"
               className="w-full py-3 mt-4 text-center text-white bg-base-green rounded-lg hover:bg-blue-700"
             >
@@ -255,7 +327,7 @@ const TeachOn = () => {
               ) : (
                 "Submit for Review"
               )}
-            </button>
+            </button> */}
           </form>
         </div>
       </div>
