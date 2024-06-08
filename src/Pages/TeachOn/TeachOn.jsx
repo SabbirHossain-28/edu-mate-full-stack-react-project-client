@@ -31,7 +31,7 @@ const TeachOn = () => {
     },
     enabled: !!user?.email,
   });
-  const { data: applicationData = {},refetch } = useQuery({
+  const { data: applicationData = [],refetch } = useQuery({
     queryKey: ["appilcationData", user?.email],
     queryFn: async () => {
       const res = await axiosCommon.get(`/applications/${user?.email}`);
@@ -40,8 +40,9 @@ const TeachOn = () => {
     enabled: !!user?.email,
   });
 
-  console.log(applicationData);
-  // console.log(userData);
+  const hasPending = applicationData.some(app => app?.status === 'Pending');
+  const hasRejected = applicationData.some(app => app?.status === 'Rejected');
+  // console.log(hasPending);
 
   useEffect(() => {
     if (userData) {
@@ -119,7 +120,7 @@ const TeachOn = () => {
     });
   }
 
-  if (applicationData?.status === "Pending") {
+  if (hasPending) {
     return (
       <div className="bg-slate-200 min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -159,10 +160,10 @@ const TeachOn = () => {
             "EduMate allows you to apply for a teaching position by filling out the required form. Share your details, choose your experience level, and select the category you wish to teach. Submit your application for review, and our admin team will process your request. If approved, you'll join our community as a teacher."
           }
         ></SectionHeader>
-        {applicationData?.status === "Rejected" && (
+        {hasRejected && (
           <div className="text-center mt-4">
             <p className="text-red-500 font-raleWay font-bold">
-              Sorry! Your first request for wanted to be a teacher in our
+              Sorry! Your  request for wanted to be a teacher in our
               platform is rejected by Admin....You can try for another request.
             </p>
           </div>
@@ -295,7 +296,7 @@ const TeachOn = () => {
                 </span>
               )}
             </div>
-            {applicationData?.status === "Rejected" ? (
+            {hasRejected ? (
               <button
                 type="submit"
                 className="w-full py-3 mt-4 text-center text-white bg-base-green rounded-lg hover:bg-blue-700"

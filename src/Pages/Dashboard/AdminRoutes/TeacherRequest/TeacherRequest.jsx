@@ -139,6 +139,7 @@ const TeacherRequest = () => {
                     <td>{data?.status}</td>
                     <td>
                       <button
+                      disabled={data?.status==="Approved" || data?.status==="Rejected"}
                         onClick={() =>
                           handleApproved(data?._id, data?.userName)
                         }
@@ -149,6 +150,7 @@ const TeacherRequest = () => {
                     </td>
                     <td>
                       <button
+                      disabled={data?.status==="Approved" || data?.status==="Rejected"}
                         onClick={() =>
                           handleRejected(data?._id, data?.userName)
                         }
