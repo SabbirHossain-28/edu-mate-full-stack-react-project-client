@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getUploadedImgUrl } from "../../Utilities/APIutils/imageHostingapi";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 
 const TeachOn = () => {
   const { user } = useAuth();
@@ -15,6 +16,7 @@ const TeachOn = () => {
   const [profileImage, setProfileImage] = useState("");
   const [isImageChanged, setIsImageChanged] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -90,6 +92,22 @@ const TeachOn = () => {
       },
     });
   };
+
+  if (userData?.role === "Admin") {
+    Swal.fire({
+      title: "Sorry Sir",
+      text: "Admin can not apply for a teacher post!",
+      icon: "warning",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Ok",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/");
+      }
+    });
+    return;
+  }
+
   return (
     <Container>
       <div className="pt-4">

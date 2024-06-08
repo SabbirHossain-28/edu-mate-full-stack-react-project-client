@@ -3,3 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.navbar a:visited { color : inherit ; }
+/* .dropdown-content a:visited { color : inherit ; } */
+.drawer-side a:visited { color : white ; }
