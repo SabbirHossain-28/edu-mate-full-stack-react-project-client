@@ -18,7 +18,7 @@ const AdminNavlinkMenu = () => {
       ></NavlinkMenu>
       <NavlinkMenu
         label={"All Classes"}
-        address={"/dashboard/classes"}
+        address={"/dashboard/allAddedClasses"}
         icon={SiGoogleclassroom}
       ></NavlinkMenu>
     </>
