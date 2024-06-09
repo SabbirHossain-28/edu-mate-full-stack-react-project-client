@@ -8,12 +8,14 @@ import { useMutation } from "@tanstack/react-query";
 import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 
 const AddClass = () => {
   const [classImage, setClassImage] = useState("");
   const axiosCommon = useAxiosCommon();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  const navigate=useNavigate();
   const {
     register,
     handleSubmit,
@@ -54,6 +56,7 @@ const AddClass = () => {
           setLoading(false);
           setClassImage("")
           reset();
+          navigate("/dashboard/myClass")
         }
       },
       onError: (error) => {
