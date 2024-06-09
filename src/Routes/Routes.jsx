@@ -67,15 +67,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "teacherRequest",
-        element:<TeacherRequest></TeacherRequest>
+        element: <TeacherRequest></TeacherRequest>,
       },
       {
         path: "addClass",
-        element:<AddClass></AddClass>
+        element: <AddClass></AddClass>,
       },
       {
         path: "myClass",
-        element:<MyClass></MyClass>
+        element: <MyClass></MyClass>,
       },
     ],
   },

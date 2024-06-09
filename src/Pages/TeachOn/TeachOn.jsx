@@ -31,7 +31,7 @@ const TeachOn = () => {
     },
     enabled: !!user?.email,
   });
-  const { data: applicationData = [],refetch } = useQuery({
+  const { data: applicationData = [], refetch } = useQuery({
     queryKey: ["appilcationData", user?.email],
     queryFn: async () => {
       const res = await axiosCommon.get(`/applications/${user?.email}`);
@@ -40,8 +40,8 @@ const TeachOn = () => {
     enabled: !!user?.email,
   });
 
-  const hasPending = applicationData.some(app => app?.status === 'Pending');
-  const hasRejected = applicationData.some(app => app?.status === 'Rejected');
+  const hasPending = applicationData.some((app) => app?.status === "Pending");
+  const hasRejected = applicationData.some((app) => app?.status === "Rejected");
   // console.log(hasPending);
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const TeachOn = () => {
             text: "Your application has been submitted for review.",
             icon: "success",
           });
-          refetch()
+          refetch();
           setLoading(false);
           reset();
         }
@@ -163,8 +163,8 @@ const TeachOn = () => {
         {hasRejected && (
           <div className="text-center mt-4">
             <p className="text-red-500 font-raleWay font-bold">
-              Sorry! Your  request for wanted to be a teacher in our
-              platform is rejected by Admin....You can try for another request.
+              Sorry! Your request for wanted to be a teacher in our platform is
+              rejected by Admin....You can try for another request.
             </p>
           </div>
         )}

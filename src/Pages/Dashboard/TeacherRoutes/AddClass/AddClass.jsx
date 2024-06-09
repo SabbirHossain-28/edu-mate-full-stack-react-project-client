@@ -172,7 +172,6 @@ const AddClass = () => {
                   })}
                   onChange={(e) => {
                     setClassImage(URL.createObjectURL(e.target.files[0]));
-                    // setIsImageChanged(true);
                   }}
                 />
               </div>

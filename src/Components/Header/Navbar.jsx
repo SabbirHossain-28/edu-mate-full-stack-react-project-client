@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, userLogOut } = useAuth();
+  // console.log(user);
   const navLinks = (
     <>
       <li>

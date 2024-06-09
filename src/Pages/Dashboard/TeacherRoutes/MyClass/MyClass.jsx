@@ -6,12 +6,32 @@ import { LuClipboardEdit } from "react-icons/lu";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { TbListDetails } from "react-icons/tb";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+import UpdateModal from "../../../../Components/DashboardComponent/Modal/UpdateModal";
+import { useForm } from "react-hook-form";
+import { getUploadedImgUrl } from "../../../../Utilities/APIutils/imageHostingapi";
+import Loading from "../../../../Shared/Loading/Loading";
 
 const MyClass = () => {
   const { user } = useAuth();
   const axiosCommon = useAxiosCommon();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedClass, setSelectedClass] = useState(null);
+  const [classImage, setClassImage] = useState("");
+  const [isImageChanged, setIsImageChanged] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-  const { data: requestedClasses = [], refetch } = useQuery({
+  const {
+    data: requestedClasses = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["requestedClasses", user?.email],
     queryFn: async () => {
       const res = await axiosCommon.get(`/classes/${user?.email}`);
@@ -27,7 +47,7 @@ const MyClass = () => {
     },
   });
 
-  const handleClassDelete = (id) => {
+  const handleClassDelete = (id, classTitle) => {
     console.log(id);
     Swal.fire({
       title: "Are you sure?",
@@ -44,7 +64,7 @@ const MyClass = () => {
             if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
-                text: "Your class has been deleted.",
+                text: `${classTitle} class has been deleted.`,
                 icon: "success",
               });
               refetch();
@@ -62,6 +82,85 @@ const MyClass = () => {
       }
     });
   };
+
+  useEffect(() => {
+    if (selectedClass) {
+      setClassImage(selectedClass?.classImage);
+    }
+  }, [selectedClass]);
+
+  useEffect(() => {
+    return () => {
+      if (classImage && isImageChanged) {
+        URL.revokeObjectURL(classImage);
+      }
+    };
+  }, [classImage, isImageChanged]);
+
+  console.log(selectedClass?._id);
+  const { mutateAsync: mutateUpdate } = useMutation({
+    mutationFn: async (updateClassData) => {
+      const res = await axiosCommon.patch(
+        `/classes/${selectedClass?._id}`,
+        updateClassData
+      );
+      return res.data;
+    },
+  });
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    console.log(data);
+    let imageURL = classImage;
+    if (isImageChanged) {
+      const imageFile = data?.classImage[0];
+      imageURL = await getUploadedImgUrl(imageFile);
+    }
+    const updateClassData = {
+      classTitle: data?.classTitle,
+      price: data?.price,
+      classDescription: data?.classDescription,
+      classImage: imageURL,
+    };
+    await mutateUpdate(updateClassData, {
+      onSuccess: (data) => {
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            title: "Update Successfull",
+            text: "Your class data has been updated successfully.",
+            icon: "success",
+          });
+          setLoading(false);
+          reset();
+          setIsModalOpen(false);
+          refetch();
+        }
+      },
+      onError: (error) => {
+        console.log("Error updating class data", error);
+        Swal.fire(
+          "Error",
+          "There was an error submitting your application",
+          "error"
+        );
+      },
+    });
+  };
+
+  const handleModalOpen = (classData) => {
+    setIsModalOpen(true);
+    setSelectedClass(classData);
+  };
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedClass(null);
+  };
+  if (isLoading)
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Loading></Loading>
+      </div>
+    );
 
   if (requestedClasses.length === 0) {
     return (
@@ -136,13 +235,18 @@ const MyClass = () => {
                     </td>
                     <td>{data?.status}</td>
                     <td>
-                      <button className="btn">
+                      <button
+                        onClick={() => handleModalOpen(data)}
+                        className="btn"
+                      >
                         <LuClipboardEdit className="text-xl"></LuClipboardEdit>
                       </button>
                     </td>
                     <td>
                       <button
-                        onClick={() => handleClassDelete(data?._id)}
+                        onClick={() =>
+                          handleClassDelete(data?._id, data?.classTitle)
+                        }
                         className="btn"
                       >
                         <RiDeleteBin2Line className="text-xl"></RiDeleteBin2Line>
@@ -158,6 +262,20 @@ const MyClass = () => {
               </tbody>
             </table>
           </div>
+          {isModalOpen && (
+            <UpdateModal
+              classData={selectedClass}
+              handleModalClose={handleModalClose}
+              handleSubmit={handleSubmit}
+              onSubmit={onSubmit}
+              register={register}
+              errors={errors}
+              classImage={classImage}
+              setClassImage={setClassImage}
+              setIsImageChanged={setIsImageChanged}
+              loading={loading}
+            ></UpdateModal>
+          )}
         </div>
       </Container>
     </div>
