@@ -18,7 +18,8 @@ const MyClass = () => {
     },
     enabled: !!user?.email,
   });
-  console.log(requestedClasses);
+
+  
   return (
     <div className="bg-slate-200 min-h-screen my-auto">
       <Container>
@@ -27,9 +28,10 @@ const MyClass = () => {
             <table className="table">
               <thead className="text-gray-500">
                 <tr>
-                  <th>Course Image</th>
+                  <th>Teacher Image</th>
                   <th>Teacher Name</th>
                   <th>Teacher Email</th>
+                  <th>Class image</th>
                   <th>Class Title</th>
                   <th>Price</th>
                   <th>Description</th>
@@ -47,7 +49,7 @@ const MyClass = () => {
                         <div className="avatar">
                           <div className="mask mask-squircle w-12 h-12">
                             <img
-                              src={data?.classImage}
+                              src={data?.teacherImage}
                               alt="Avatar Tailwind CSS Component"
                             />
                           </div>
@@ -57,43 +59,36 @@ const MyClass = () => {
                     <td>{data?.teacherName}</td>
                     <td>{data?.teacherEmail}</td>
                     <td>{data?.classTitle}</td>
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <img
+                              src={data?.classImage}
+                              alt="Avatar Tailwind CSS Component"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
                     <td>{data?.price}</td>
-                    <td>{data?.classDescription}</td>
+                    <td>{data?.classDescription.split("").slice(0,40)}.......</td>
                     <td>{data?.status}</td>
                     <td>
                       <button className="btn">
-                        <LuClipboardEdit></LuClipboardEdit>
+                        <LuClipboardEdit className="text-xl"></LuClipboardEdit>
                       </button>
                     </td>
                     <td>
                       <button className="btn">
-                        <RiDeleteBin2Line></RiDeleteBin2Line>
+                        <RiDeleteBin2Line className="text-xl"></RiDeleteBin2Line>
                       </button>
                     </td>
                     <td>
                       <button className="btn">
-                        <TbListDetails></TbListDetails>
+                        <TbListDetails className="text-xl"></TbListDetails>
                       </button>
                     </td>
-                    {/* <td>
-                      <button
-                        onClick={() => handleUserRole(data?._id)}
-                        className={`btn ${
-                          data?.role === "Admin"
-                            ? "bg-gray-400"
-                            : "bg-base-orange"
-                        } border-none btn-sm`}
-                        disabled={
-                          data?.role === "Admin" || loadingUserId === data?._id
-                        }
-                      >
-                        {loadingUserId === data?._id ? (
-                          <span className="loading loading-spinner loading-xs"></span>
-                        ) : (
-                          <GrUserAdmin className="text-2xl text-white" />
-                        )}
-                      </button>
-                    </td> */}
                   </tr>
                 ))}
               </tbody>

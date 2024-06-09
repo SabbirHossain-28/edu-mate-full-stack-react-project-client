@@ -37,7 +37,7 @@ const AddClass = () => {
     const classData = {
       teacherName: user?.displayName,
       teacherEmail: user?.email,
-      teacherImage: user?.displayURL,
+      teacherImage: user?.photoURL,
       classTitle: data.title,
       price: data.price,
       classDescription: data.description,
