@@ -11,6 +11,7 @@ import UpdateModal from "../../../../Components/DashboardComponent/Modal/UpdateM
 import { useForm } from "react-hook-form";
 import { getUploadedImgUrl } from "../../../../Utilities/APIutils/imageHostingapi";
 import Loading from "../../../../Shared/Loading/Loading";
+import { Link } from "react-router-dom";
 
 const MyClass = () => {
   const { user } = useAuth();
@@ -237,7 +238,7 @@ const MyClass = () => {
                     <td>
                       <button
                         onClick={() => handleModalOpen(data)}
-                        className="btn"
+                        className="btn btn-sm"
                       >
                         <LuClipboardEdit className="text-xl"></LuClipboardEdit>
                       </button>
@@ -247,15 +248,25 @@ const MyClass = () => {
                         onClick={() =>
                           handleClassDelete(data?._id, data?.classTitle)
                         }
-                        className="btn"
+                        className="btn btn-sm"
                       >
                         <RiDeleteBin2Line className="text-xl"></RiDeleteBin2Line>
                       </button>
                     </td>
                     <td>
-                      <button className="btn">
-                        <TbListDetails className="text-xl"></TbListDetails>
-                      </button>
+                      <Link to={`/dashboard/my-class/${data?._id}`}>
+                        <button
+                          disabled={
+                            data?.status === "Pending" ||
+                            data?.status === "Rejected"
+                          }
+                          className={`btn btn-sm ${
+                            data?.status === "Accepted" && "bg-green-500"
+                          }`}
+                        >
+                          <TbListDetails className="text-xl"></TbListDetails>
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}
