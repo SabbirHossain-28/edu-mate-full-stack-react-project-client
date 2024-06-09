@@ -319,16 +319,6 @@ const TeachOn = () => {
                 )}
               </button>
             )}
-            {/* <button
-              type="submit"
-              className="w-full py-3 mt-4 text-center text-white bg-base-green rounded-lg hover:bg-blue-700"
-            >
-              {loading ? (
-                <ImSpinner9 className="animate-spin text-2xl text-base-orange m-auto" />
-              ) : (
-                "Submit for Review"
-              )}
-            </button> */}
           </form>
         </div>
       </div>

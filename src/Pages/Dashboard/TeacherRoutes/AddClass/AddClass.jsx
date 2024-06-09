@@ -15,7 +15,7 @@ const AddClass = () => {
   const axiosCommon = useAxiosCommon();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -54,9 +54,9 @@ const AddClass = () => {
             icon: "success",
           });
           setLoading(false);
-          setClassImage("")
+          setClassImage("");
           reset();
-          navigate("/dashboard/myClass")
+          navigate("/dashboard/myClass");
         }
       },
       onError: (error) => {
