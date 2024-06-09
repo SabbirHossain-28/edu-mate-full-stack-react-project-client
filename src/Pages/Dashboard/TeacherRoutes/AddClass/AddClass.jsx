@@ -33,7 +33,7 @@ const AddClass = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     const imageFile = data.classImage[0];
-    const imageURL = getUploadedImgUrl(imageFile);
+    const imageURL = await getUploadedImgUrl(imageFile);
     const classData = {
       teacherName: user?.displayName,
       teacherEmail: user?.email,
@@ -167,7 +167,9 @@ const AddClass = () => {
                 <input
                   type="file"
                   className="w-full px-3 py-2 border-gray-300 bg-white rounded-lg border"
-                  {...register("classImage")}
+                  {...register("classImage", {
+                    required: "Class image is required",
+                  })}
                   onChange={(e) => {
                     setClassImage(URL.createObjectURL(e.target.files[0]));
                     // setIsImageChanged(true);
