@@ -1,10 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import Container from "../../../../Shared/Container/Container";
 import { LuClipboardEdit } from "react-icons/lu";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { TbListDetails } from "react-icons/tb";
+import Swal from "sweetalert2";
 
 const MyClass = () => {
   const { user } = useAuth();
@@ -19,7 +20,65 @@ const MyClass = () => {
     enabled: !!user?.email,
   });
 
-  
+  const { mutateAsync: mutateDelete } = useMutation({
+    mutationFn: async (id) => {
+      const res = await axiosCommon.delete(`/classes/${id}`);
+      return res.data;
+    },
+  });
+
+  const handleClassDelete = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Your added class will be delete permanently!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await mutateDelete(id, {
+          onSuccess: (data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your class has been deleted.",
+                icon: "success",
+              });
+              refetch();
+            }
+          },
+          onError: (error) => {
+            console.error("Error deleting class", error);
+            Swal.fire(
+              "Error",
+              "There was an error deleting your added class",
+              "error"
+            );
+          },
+        });
+      }
+    });
+  };
+
+  if (requestedClasses.length === 0) {
+    return (
+      <div className="bg-slate-200 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-3xl font-pop font-bold mb-4">
+            Opppsss!!!!....There is no added class data for you!
+          </h2>
+          <p className="text-xl font-poppin">
+            You are not add any single class and for that you have no data in my
+            class page..Please add class as soon as possible.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-slate-200 min-h-screen my-auto">
       <Container>
@@ -72,7 +131,9 @@ const MyClass = () => {
                       </div>
                     </td>
                     <td>{data?.price}</td>
-                    <td>{data?.classDescription.split("").slice(0,40)}.......</td>
+                    <td>
+                      {data?.classDescription.split("").slice(0, 40)}.......
+                    </td>
                     <td>{data?.status}</td>
                     <td>
                       <button className="btn">
@@ -80,7 +141,10 @@ const MyClass = () => {
                       </button>
                     </td>
                     <td>
-                      <button className="btn">
+                      <button
+                        onClick={() => handleClassDelete(data?._id)}
+                        className="btn"
+                      >
                         <RiDeleteBin2Line className="text-xl"></RiDeleteBin2Line>
                       </button>
                     </td>
