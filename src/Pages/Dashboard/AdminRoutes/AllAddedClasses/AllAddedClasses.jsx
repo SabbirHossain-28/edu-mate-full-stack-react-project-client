@@ -1,22 +1,106 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import Container from "../../../../Shared/Container/Container";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { TbReport } from "react-icons/tb";
+import Swal from "sweetalert2";
 
 const AllAddedClasses = () => {
-    const axiosCommon =useAxiosCommon();
+  const axiosCommon = useAxiosCommon();
 
-    const {data:allClasses=[]}=useQuery({
-        queryKey:["allClasses"],
-        queryFn:async ()=>{
-            const res=await axiosCommon.get("/classes");
-            return res.data;
-        }
-    })
-    console.log(allClasses);
-    return (
-        <div className="bg-slate-200 min-h-screen my-auto">
+  const { data: allClasses = [], refetch } = useQuery({
+    queryKey: ["allClasses"],
+    queryFn: async () => {
+      const res = await axiosCommon.get("/classes");
+      return res.data;
+    },
+  });
+
+  const { mutateAsync: mutateApproveClass } = useMutation({
+    mutationFn: async (id) => {
+      const res = await axiosCommon.patch(`/classes/approve/${id}`);
+      return res.data;
+    },
+  });
+
+  const handleClassApproved = (id, classTitle) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Are you want accepted the ${classTitle} class`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, accept it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await mutateApproveClass(id, {
+          onSuccess: (data) => {
+            if (data.modifiedCount) {
+              Swal.fire({
+                title: "Class Accepted",
+                text: `${classTitle} class is accepted successfully.`,
+                icon: "success",
+              });
+              refetch();
+            }
+          },
+          onError: (error) => {
+            console.log("Error approving class", error);
+            Swal.fire({
+              title: "Error",
+              text: "There was an error approving the class",
+              icon: "error",
+            });
+          },
+        });
+      }
+    });
+  };
+
+  const { mutateAsync: mutateRejectClass } = useMutation({
+    mutationFn: async (id) => {
+      const res = await axiosCommon.patch(`/classes/reject/${id}`);
+      return res.data;
+    },
+  });
+
+  const handleClassReject = (id, classTitle) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Are you want reject the ${classTitle} class`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, reject it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await mutateRejectClass(id, {
+          onSuccess: (data) => {
+            if (data.modifiedCount) {
+              Swal.fire({
+                title: "Rejected Successfully",
+                text: `${classTitle} class is rejected successfully.`,
+                icon: "success",
+              });
+              refetch();
+            }
+          },
+          onError: (error) => {
+            console.log("Error rejecting class", error);
+            Swal.fire({
+              title: "Error",
+              text: "There was an error rejecting the class",
+              icon: "error",
+            });
+          },
+        });
+      }
+    });
+  };
+  return (
+    <div className="bg-slate-200 min-h-screen my-auto">
       <Container>
         <div className="pt-16">
           <div className="overflow-x-auto bg-white border-2 border-black">
@@ -52,34 +136,42 @@ const AllAddedClasses = () => {
                     <td>{data?.classTitle}</td>
                     <td>{data?.teacherName}</td>
                     <td>{data?.teacherEmail}</td>
-                    <td>{data?.classDescription.split("").slice(0,20)}....</td>
+                    <td>{data?.classDescription.split("").slice(0, 20)}....</td>
                     <td>{data?.status}</td>
                     <td>
-                    <button
-                    //   disabled={data?.status==="Approved" || data?.status==="Rejected"}
-                        // onClick={() =>
-                        //   handleApproved(data?._id, data?.userName)
-                        // }
-                        className="btn btn-sm"
+                      <button
+                        onClick={() =>
+                          handleClassApproved(data?._id, data?.classTitle)
+                        }
+                        className={`btn btn-sm ${
+                          data?.status === "Accepted" && "bg-green-500"
+                        }`}
                       >
                         <FcApprove className="text-2xl"></FcApprove>
                       </button>
                     </td>
                     <td>
-                    <button
-                    //   disabled={data?.status==="Approved" || data?.status==="Rejected"}
-                        // onClick={() =>
-                        //   handleRejected(data?._id, data?.userName)
-                        // }
-                        className="btn btn-sm"
+                      <button
+                        onClick={() =>
+                          handleClassReject(data?._id, data?.classTitle)
+                        }
+                        className={`btn btn-sm ${
+                          data?.status === "Rejected" && "bg-red-500"
+                        }`}
                       >
                         <FcDisapprove className="text-2xl"></FcDisapprove>
                       </button>
                     </td>
                     <td>
-                        <button className="btn btn-sm">
-                            <TbReport className="text-2xl"></TbReport>
-                        </button>
+                      <button
+                        disabled={
+                          data?.status === "Pending" ||
+                          data?.status === "Rejected"
+                        }
+                        className="btn btn-sm"
+                      >
+                        <TbReport className="text-2xl"></TbReport>
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -89,7 +181,7 @@ const AllAddedClasses = () => {
         </div>
       </Container>
     </div>
-    );
+  );
 };
 
 export default AllAddedClasses;
