@@ -33,12 +33,13 @@ const MyClass = () => {
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["requestedClasses", user?.email],
+    queryKey: ["requestedClasses"],
+    enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axiosCommon.get(`/classes/${user?.email}`);
       return res.data;
     },
-    enabled: !!user?.email,
+    // enabled: !!user?.email,
   });
 
   const { mutateAsync: mutateDelete } = useMutation({

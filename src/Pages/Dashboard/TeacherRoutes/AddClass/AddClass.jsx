@@ -43,6 +43,8 @@ const AddClass = () => {
       classDescription: data.description,
       classImage: imageURL,
       status: "Pending",
+      assignment:0,
+      totalEnrollment:0,
     };
 
     await mutateAsync(classData, {

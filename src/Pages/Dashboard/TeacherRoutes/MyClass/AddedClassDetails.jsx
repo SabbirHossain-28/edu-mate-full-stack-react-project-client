@@ -14,7 +14,7 @@ const AddedClassDetails = () => {
   const { data: classData = {} } = useQuery({
     queryKey: ["classData"],
     queryFn: async () => {
-      const res = await axiosCommon.get(`/classes/${id}`);
+      const res = await axiosCommon.get(`/class/${id}`);
       return res.data;
     },
   });
