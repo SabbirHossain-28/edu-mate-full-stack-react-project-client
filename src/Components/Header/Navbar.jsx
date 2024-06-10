@@ -74,11 +74,11 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 font-poppin">{navLinks}</ul>
         </div>
         <div className="navbar-end ">
-          <Link to="/login">
+          {!user&&<Link to="/login">
             <button className="btn btn-xs text-[#F2871D] font-poppin md:btn-sm lg:btn-md mr-4">
               Login
             </button>
-          </Link>
+          </Link>}
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}

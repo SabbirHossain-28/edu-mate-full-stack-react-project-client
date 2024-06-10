@@ -64,7 +64,7 @@ const AllClasses = () => {
                       {classData?.classDescription.split("").slice(0, 70)}...
                     </p>
 
-                    <Link>
+                    <Link to={`/classDetail-enroll/${classData?._id}`}>
                       <button className="border text-lg font-bold px-3 py-1 mt-4 rounded-lg bg-base-orange text-base-green border-none hover:scale-95 transition-all ease-in duration-200 hover:text-white">
                         Enroll
                       </button>

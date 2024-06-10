@@ -15,6 +15,7 @@ import AddClass from "../Pages/Dashboard/TeacherRoutes/AddClass/AddClass";
 import MyClass from "../Pages/Dashboard/TeacherRoutes/MyClass/MyClass";
 import AllAddedClasses from "../Pages/Dashboard/AdminRoutes/AllAddedClasses/AllAddedClasses";
 import AddedClassDetails from "../Pages/Dashboard/TeacherRoutes/MyClass/AddedClassDetails";
+import ClassDetailEnroll from "../Pages/AllClasses/ClassDetailEnroll";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,14 @@ export const router = createBrowserRouter([
       {
         path: "/allClasses",
         element: <AllClasses></AllClasses>,
+      },
+      {
+        path: "/classDetail-enroll/:id",
+        element: (
+          <PrivateRoute>
+            <ClassDetailEnroll></ClassDetailEnroll>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
