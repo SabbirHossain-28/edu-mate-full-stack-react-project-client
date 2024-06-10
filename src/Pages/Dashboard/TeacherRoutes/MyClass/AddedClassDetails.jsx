@@ -6,10 +6,26 @@ import SectionHeader from "../../../../Shared/SectionHeader/SectionHeader";
 import { PiStudentBold } from "react-icons/pi";
 import { MdAssignment, MdOutlineAddToPhotos } from "react-icons/md";
 import { BiTask } from "react-icons/bi";
+import AssignmentModal from "../../../../Components/DashboardComponent/Modal/AssignmentModal";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 
 const AddedClassDetails = () => {
   const axiosCommon = useAxiosCommon();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, isLoading] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
   const { id } = useParams();
+//   console.log( (startDate).toLocaleDateString());
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const { data: classDetails = {} } = useQuery({
     queryKey: ["classDetails"],
@@ -18,7 +34,17 @@ const AddedClassDetails = () => {
       return res.data;
     },
   });
-  //   console.log(classDetails);
+
+  const onSubmit=(data=>{
+    console.log(data);
+  })
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div>
       <Container>
@@ -77,10 +103,25 @@ const AddedClassDetails = () => {
                 " Here, you can easily add new assignments to enhance your students' learning experience."
               }
             ></SectionHeader>
-            <button className="flex items-center gap-1 text-xl font-raleWay font-semibold  p-3 rounded-tr-2xl rounded-bl-2xl bg-base-green text-base-orange hover:scale-90 transition-all duration-500 ease-in-out hover:border-2 hover:border-base-orange">
+            <button
+              onClick={handleModalOpen}
+              className="flex items-center gap-1 text-xl font-raleWay font-semibold  p-3 rounded-tr-2xl rounded-bl-2xl bg-base-green text-base-orange hover:scale-90 transition-all duration-500 ease-in-out hover:border-2 hover:border-base-orange"
+            >
               <MdOutlineAddToPhotos className="text-2xl"></MdOutlineAddToPhotos>
               Create Assignment
             </button>
+            {isModalOpen && (
+              <AssignmentModal
+                handleModalClose={handleModalClose}
+                register={register}
+                handleSubmit={handleSubmit}
+                errors={errors}
+                loading={loading}
+                onSubmit={onSubmit}
+                startDate={startDate}
+                setStartDate={setStartDate}
+              ></AssignmentModal>
+            )}
           </div>
         </div>
       </Container>
