@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Container from "../../../../Shared/Container/Container";
 import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import SectionHeader from "../../../../Shared/SectionHeader/SectionHeader";
 import { PiStudentBold } from "react-icons/pi";
 import { MdAssignment, MdOutlineAddToPhotos } from "react-icons/md";
@@ -9,16 +9,17 @@ import { BiTask } from "react-icons/bi";
 import AssignmentModal from "../../../../Components/DashboardComponent/Modal/AssignmentModal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 
 const AddedClassDetails = () => {
   const axiosCommon = useAxiosCommon();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loading, isLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const { id } = useParams();
-//   console.log( (startDate).toLocaleDateString());
+  //   console.log( (startDate).toLocaleDateString());
 
   const {
     register,
@@ -27,7 +28,7 @@ const AddedClassDetails = () => {
     reset,
   } = useForm();
 
-  const { data: classDetails = {} } = useQuery({
+  const { data: classDetails = {}, refetch } = useQuery({
     queryKey: ["classDetails"],
     queryFn: async () => {
       const res = await axiosCommon.get(`/class/${id}`);
@@ -35,9 +36,45 @@ const AddedClassDetails = () => {
     },
   });
 
-  const onSubmit=(data=>{
-    console.log(data);
-  })
+  const { mutateAsync: mutateAddAssignment } = useMutation({
+    mutationFn: async (assignmentData) => {
+      const res = await axiosCommon.post("/assignments", assignmentData);
+      return res.data;
+    },
+  });
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    const assignmentData = {
+      ...data,
+      assignmentDeadline: startDate.toLocaleDateString(),
+      classId: id,
+    };
+    console.log(assignmentData);
+    await mutateAddAssignment(assignmentData, {
+      onSuccess: (data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Successfully Added",
+            text: "Your assignment has been added successfully.",
+            icon: "success",
+          });
+          refetch();
+          reset();
+          setIsModalOpen(false);
+          setLoading(false);
+        }
+      },
+      onError: (error) => {
+        console.log("Error posting assignment", error);
+        Swal.fire({
+          title: "Error!",
+          text: "An error occurred while creating the assignment.",
+          icon: "error",
+        });
+      },
+    });
+  };
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
