@@ -73,7 +73,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "allAddedClasses",
-        element: <AllAddedClasses></AllAddedClasses>
+        element: <AllAddedClasses></AllAddedClasses>,
       },
       {
         path: "addClass",

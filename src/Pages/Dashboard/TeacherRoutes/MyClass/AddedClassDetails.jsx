@@ -10,8 +10,6 @@ import AssignmentModal from "../../../../Components/DashboardComponent/Modal/Ass
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
 
 const AddedClassDetails = () => {
   const axiosCommon = useAxiosCommon();
@@ -19,7 +17,6 @@ const AddedClassDetails = () => {
   const [loading, setLoading] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const { id } = useParams();
-  //   console.log( (startDate).toLocaleDateString());
 
   const {
     register,
