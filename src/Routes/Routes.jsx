@@ -6,7 +6,6 @@ import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 import MyClasses from "../Pages/Dashboard/StudentRoutes/MyClasses/MyClasses";
-// import StudentProfile from "../Pages/Dashboard/UserProfile/UserProfile";
 import TeachOn from "../Pages/TeachOn/TeachOn";
 import AllClasses from "../Pages/AllClasses/AllClasses";
 import AllUsers from "../Pages/Dashboard/AdminRoutes/AllUsers/AllUsers";
@@ -106,15 +105,27 @@ export const router = createBrowserRouter([
       },
       {
         path: "addClass",
-        element: <AddClass></AddClass>,
+        element: (
+          <PrivateRoute>
+            <AddClass></AddClass>
+          </PrivateRoute>
+        ),
       },
       {
         path: "myClass",
-        element: <MyClass></MyClass>,
+        element: (
+          <PrivateRoute>
+            <MyClass></MyClass>
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-class/:id",
-        element: <AddedClassDetails></AddedClassDetails>,
+        element: (
+          <PrivateRoute>
+            <AddedClassDetails></AddedClassDetails>
+          </PrivateRoute>
+        ),
       },
     ],
   },
