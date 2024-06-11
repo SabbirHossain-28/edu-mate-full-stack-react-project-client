@@ -1,29 +1,31 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
+// import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import Container from "../../../../Shared/Container/Container";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const TeacherRequest = () => {
-  const axiosCommon = useAxiosCommon();
+  // const axiosCommon = useAxiosCommon();
+  const axiosSecure=useAxiosSecure();
 
   const { data: applications = [], refetch } = useQuery({
     queryKey: ["applications"],
     queryFn: async () => {
-      const res = await axiosCommon.get("/applications");
+      const res = await axiosSecure.get("/applications");
       return res.data;
     },
   });
   const { mutateAsync: approveMutate } = useMutation({
     mutationFn: async (id) => {
-      const res = await axiosCommon.patch(`/applications/approve/${id}`);
+      const res = await axiosSecure.patch(`/applications/approve/${id}`);
       return res.data;
     },
   });
 
   const { mutateAsync: rejectMutate } = useMutation({
     mutationFn: async (id) => {
-      const res = await axiosCommon.patch(`/applications/reject/${id}`);
+      const res = await axiosSecure.patch(`/applications/reject/${id}`);
       return res.data;
     },
   });

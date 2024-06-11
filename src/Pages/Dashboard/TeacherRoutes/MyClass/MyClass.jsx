@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hooks/useAuth";
-import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
+// import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import Container from "../../../../Shared/Container/Container";
 import { LuClipboardEdit } from "react-icons/lu";
 import { RiDeleteBin2Line } from "react-icons/ri";
@@ -12,10 +12,12 @@ import { useForm } from "react-hook-form";
 import { getUploadedImgUrl } from "../../../../Utilities/APIutils/imageHostingapi";
 import Loading from "../../../../Shared/Loading/Loading";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const MyClass = () => {
   const { user } = useAuth();
-  const axiosCommon = useAxiosCommon();
+  // const axiosCommon = useAxiosCommon();
+  const axiosSecure=useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedClass, setSelectedClass] = useState(null);
   const [classImage, setClassImage] = useState("");
@@ -36,7 +38,7 @@ const MyClass = () => {
     queryKey: ["requestedClasses"],
     enabled: !loading && !!user?.email,
     queryFn: async () => {
-      const res = await axiosCommon.get(`/classes/${user?.email}`);
+      const res = await axiosSecure.get(`/classes/${user?.email}`);
       return res.data;
     },
     // enabled: !!user?.email,
@@ -44,7 +46,7 @@ const MyClass = () => {
 
   const { mutateAsync: mutateDelete } = useMutation({
     mutationFn: async (id) => {
-      const res = await axiosCommon.delete(`/classes/${id}`);
+      const res = await axiosSecure.delete(`/classes/${id}`);
       return res.data;
     },
   });
@@ -102,7 +104,7 @@ const MyClass = () => {
   console.log(selectedClass?._id);
   const { mutateAsync: mutateUpdate } = useMutation({
     mutationFn: async (updateClassData) => {
-      const res = await axiosCommon.patch(
+      const res = await axiosSecure.patch(
         `/classes/${selectedClass?._id}`,
         updateClassData
       );

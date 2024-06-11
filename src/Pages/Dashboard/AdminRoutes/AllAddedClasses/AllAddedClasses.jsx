@@ -1,24 +1,26 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
+// import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Container from "../../../../Shared/Container/Container";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { TbReport } from "react-icons/tb";
 import Swal from "sweetalert2";
 
 const AllAddedClasses = () => {
-  const axiosCommon = useAxiosCommon();
+  // const axiosCommon = useAxiosCommon();
+  const axiosSecure=useAxiosSecure();
 
   const { data: allClasses = [], refetch } = useQuery({
     queryKey: ["allClasses"],
     queryFn: async () => {
-      const res = await axiosCommon.get("/classes");
+      const res = await axiosSecure.get("/classes");
       return res.data;
     },
   });
 
   const { mutateAsync: mutateApproveClass } = useMutation({
     mutationFn: async (id) => {
-      const res = await axiosCommon.patch(`/classes/approve/${id}`);
+      const res = await axiosSecure.patch(`/classes/approve/${id}`);
       return res.data;
     },
   });
@@ -60,7 +62,7 @@ const AllAddedClasses = () => {
 
   const { mutateAsync: mutateRejectClass } = useMutation({
     mutationFn: async (id) => {
-      const res = await axiosCommon.patch(`/classes/reject/${id}`);
+      const res = await axiosSecure.patch(`/classes/reject/${id}`);
       return res.data;
     },
   });

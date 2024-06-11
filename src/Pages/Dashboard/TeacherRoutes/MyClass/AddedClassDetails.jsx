@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import Container from "../../../../Shared/Container/Container";
-import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
+// import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import SectionHeader from "../../../../Shared/SectionHeader/SectionHeader";
 import { PiStudentBold } from "react-icons/pi";
@@ -10,9 +10,11 @@ import AssignmentModal from "../../../../Components/DashboardComponent/Modal/Ass
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const AddedClassDetails = () => {
-  const axiosCommon = useAxiosCommon();
+  // const axiosCommon = useAxiosCommon();
+  const axiosSecure=useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
@@ -28,14 +30,14 @@ const AddedClassDetails = () => {
   const { data: classDetails = {}, refetch } = useQuery({
     queryKey: ["classDetails"],
     queryFn: async () => {
-      const res = await axiosCommon.get(`/class/${id}`);
+      const res = await axiosSecure.get(`/class/${id}`);
       return res.data;
     },
   });
 
   const { mutateAsync: mutateAddAssignment } = useMutation({
     mutationFn: async (assignmentData) => {
-      const res = await axiosCommon.post("/assignments", assignmentData);
+      const res = await axiosSecure.post("/assignments", assignmentData);
       return res.data;
     },
   });

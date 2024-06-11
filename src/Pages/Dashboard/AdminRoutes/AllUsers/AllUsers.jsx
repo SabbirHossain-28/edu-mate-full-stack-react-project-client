@@ -1,13 +1,15 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
+// import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import Container from "../../../../Shared/Container/Container";
 import { GrUserAdmin } from "react-icons/gr";
 import Swal from "sweetalert2";
 import Loading from "../../../../Shared/Loading/Loading";
 import { useState } from "react";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const AllUsers = () => {
-  const axiosCommon = useAxiosCommon();
+  // const axiosCommon = useAxiosCommon();
+  const axiosSecure=useAxiosSecure();
   const [loadingUserId, setLoadingUserId] = useState(null);
 
   const {
@@ -17,13 +19,13 @@ const AllUsers = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axiosCommon.get("/users");
+      const res = await axiosSecure.get("/users");
       return res.data;
     },
   });
   const { mutateAsync } = useMutation({
     mutationFn: async (id) => {
-      const res = await axiosCommon.patch(`/users/admin/${id}`);
+      const res = await axiosSecure.patch(`/users/admin/${id}`);
       return res.data;
     },
   });

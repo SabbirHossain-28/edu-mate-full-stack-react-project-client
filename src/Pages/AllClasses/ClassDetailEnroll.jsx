@@ -1,18 +1,20 @@
 import { useParams } from "react-router-dom";
-import useAxiosCommon from "../../Hooks/useAxiosCommon";
+// import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { useQuery } from "@tanstack/react-query";
 import Container from "../../Shared/Container/Container";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ClassDetailEnroll = () => {
-  const axiosCommon = useAxiosCommon();
+  // const axiosCommon = useAxiosCommon();
+  const axiosSecure=useAxiosSecure();
   const { id } = useParams();
   const { user } = useAuth();
 
   const { data: classDataForEnroll = {} } = useQuery({
     queryKey: ["classDataForEnroll", id],
     queryFn: async () => {
-      const res = await axiosCommon.get(`/class/${id}`);
+      const res = await axiosSecure.get(`/class/${id}`);
       return res.data;
     },
   });

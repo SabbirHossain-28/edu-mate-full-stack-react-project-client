@@ -2,16 +2,18 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import Container from "../../Shared/Container/Container";
 import SectionHeader from "../../Shared/SectionHeader/SectionHeader";
 import useAuth from "../../Hooks/useAuth";
-import useAxiosCommon from "../../Hooks/useAxiosCommon";
+// import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { getUploadedImgUrl } from "../../Utilities/APIutils/imageHostingapi";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 const TeachOn = () => {
   const { user } = useAuth();
-  const axiosCommon = useAxiosCommon();
+  // const axiosCommon = useAxiosCommon();
+  const axiosSecure=useAxiosSecure();
   const [profileImage, setProfileImage] = useState("");
   const [isImageChanged, setIsImageChanged] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -26,7 +28,7 @@ const TeachOn = () => {
   const { data: userData = {} } = useQuery({
     queryKey: ["userData", user?.email],
     queryFn: async () => {
-      const res = await axiosCommon.get(`/users/${user?.email}`);
+      const res = await axiosSecure.get(`/users/${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email,
@@ -34,7 +36,7 @@ const TeachOn = () => {
   const { data: applicationData = [], refetch } = useQuery({
     queryKey: ["appilcationData", user?.email],
     queryFn: async () => {
-      const res = await axiosCommon.get(`/applications/${user?.email}`);
+      const res = await axiosSecure.get(`/applications/${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email,
@@ -59,7 +61,7 @@ const TeachOn = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (applicationData) => {
-      const res = await axiosCommon.post("/applications", applicationData);
+      const res = await axiosSecure.post("/applications", applicationData);
       return res.data;
     },
   });

@@ -5,14 +5,16 @@ import { useState } from "react";
 import useAuth from "../../../../Hooks/useAuth";
 import { getUploadedImgUrl } from "../../../../Utilities/APIutils/imageHostingapi";
 import { useMutation } from "@tanstack/react-query";
-import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
+// import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const AddClass = () => {
   const [classImage, setClassImage] = useState("");
-  const axiosCommon = useAxiosCommon();
+  // const axiosCommon = useAxiosCommon();
+  const axiosSecure=useAxiosSecure();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ const AddClass = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (classData) => {
-      const res = await axiosCommon.post("/classes", classData);
+      const res = await axiosSecure.post("/classes", classData);
       return res.data;
     },
   });
