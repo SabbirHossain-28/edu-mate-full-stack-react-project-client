@@ -27,7 +27,7 @@ const AllClasses = () => {
           ></SectionHeader>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             {acceptedClass.map((classData, idx) => (
-              <a
+              <div
                 key={idx}
                 className="group relative block h-64 sm:h-80 lg:h-96"
               >
@@ -71,7 +71,7 @@ const AllClasses = () => {
                     </Link>
                   </div>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>

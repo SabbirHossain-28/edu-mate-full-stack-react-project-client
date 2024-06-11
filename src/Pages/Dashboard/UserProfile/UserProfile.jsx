@@ -1,7 +1,7 @@
 import useAuth from "../../../Hooks/useAuth";
 import useRole from "../../../Hooks/useRole";
 
-const StudentProfile = () => {
+const UserProfile = () => {
   const { user} = useAuth();
   const [role] = useRole();
   console.log(user);
@@ -238,4 +238,4 @@ const StudentProfile = () => {
   );
 };
 
-export default StudentProfile;
+export default UserProfile;
