@@ -4,21 +4,39 @@ import { useQuery } from "@tanstack/react-query";
 import Container from "../../Shared/Container/Container";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import PaymentModal from "../../Components/DashboardComponent/Modal/PaymentModal";
+import { useState } from "react";
+import useRole from "../../Hooks/useRole";
+import Swal from "sweetalert2";
 
 const ClassDetailEnroll = () => {
   // const axiosCommon = useAxiosCommon();
-  const axiosSecure=useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const { id } = useParams();
   const { user } = useAuth();
+  const [role] = useRole();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data: classDataForEnroll = {} } = useQuery({
+  const { data: classDataForEnroll = {},refetch } = useQuery({
     queryKey: ["classDataForEnroll", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/class/${id}`);
       return res.data;
     },
   });
-  console.log(classDataForEnroll);
+  const handleModalOpen = () => {
+    if (role === "Teacher" || role === "Admin") {
+      return Swal.fire({
+        icon: "error",
+        title: "Enroll Restricted",
+        text: `Sorry!!${user?.displayName}.Teacher or Admin can not enroll any class`,
+      });
+    }
+    setIsModalOpen(true);
+  };
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div>
       <Container>
@@ -75,12 +93,21 @@ const ClassDetailEnroll = () => {
                           </p>
                         </div>
                       </div>
-                        <div>
-                            {/* <button className="btn bg-base-orange">Enroll This Class</button> */}
-                            <button className="border text-lg font-bold font-poppin px-3 py-2 mt-4 rounded-lg bg-gradient-to-r from-pink-500 to-yellow-500 text-base-green border-none hover:scale-95 transition-all ease-in duration-200 hover:text-white">
-                            Enroll This Class
-                      </button>
-                        </div>
+                      <div>
+                        <button
+                          onClick={handleModalOpen}
+                          className="border text-lg font-bold font-poppin px-3 py-2 mt-4 rounded-lg bg-gradient-to-r from-pink-500 to-yellow-500 text-base-green border-none hover:scale-95 transition-all ease-in duration-200 hover:text-white"
+                        >
+                          Enroll This Class
+                        </button>
+                        {isModalOpen && (
+                          <PaymentModal
+                            handleModalClose={handleModalClose}
+                            classDataForEnroll={classDataForEnroll}
+                            refetch={refetch}
+                          ></PaymentModal>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
