@@ -1,4 +1,3 @@
-import { ImUserTie } from "react-icons/im";
 import { Link, Outlet } from "react-router-dom";
 import useRole from "../../Hooks/useRole";
 import NavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/NavlinkMenu";
@@ -10,6 +9,8 @@ import { AiOutlineBars } from "react-icons/ai";
 import { SiSololearn } from "react-icons/si";
 import useAuth from "../../Hooks/useAuth";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import { TiHomeOutline } from "react-icons/ti";
+import { FaUserAlt } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const [role] = useRole();
@@ -69,6 +70,11 @@ const DashboardLayout = () => {
           <div className="flex flex-col justify-between  flex-1 mt-6">
             {/*  Menu Items */}
             <nav className="navlink">
+              <NavlinkMenu
+                label={"My Profile"}
+                address={"/dashboard/userProfile"}
+                icon={FaUserAlt}
+              ></NavlinkMenu>
               {role === "Admin" && <AdminNavlinkMenu></AdminNavlinkMenu>}
               {role === "Teacher" && <TeacherNavlinkMenu></TeacherNavlinkMenu>}
               {role === "Student" && <StudentNavlinkMenu></StudentNavlinkMenu>}
@@ -79,10 +85,11 @@ const DashboardLayout = () => {
         <div>
           <hr />
           {/* Profile Menu */}
+
           <NavlinkMenu
-            label={"My Profile"}
-            address={"/dashboard/userProfile"}
-            icon={ImUserTie}
+            label={"Home"}
+            address={"/"}
+            icon={TiHomeOutline}
           ></NavlinkMenu>
           <button
             onClick={userLogOut}

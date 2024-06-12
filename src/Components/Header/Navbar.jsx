@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { SiSololearn } from "react-icons/si";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import { IoIosContact } from "react-icons/io";
 
 const Navbar = () => {
   const { user, userLogOut, loading } = useAuth();
@@ -87,11 +88,19 @@ const Navbar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar w-14 "
             >
-              <div className="w-16 rounded-full border-4 border-green-600">
-                <img
+              <div
+                className={`w-16 rounded-full border-4 ${
+                  user ? "border-green-600" : "border-red-600"
+                } `}
+              >
+                {user && !loading ? (
+                  <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  src={user?.photoURL}
                 />
+                ) : (
+                  <div className="flex justify-center items-center rounded-full "><IoIosContact className="text-gray-200 text-5xl"></IoIosContact></div>
+                )}
               </div>
             </div>
             <ul

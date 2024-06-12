@@ -38,7 +38,7 @@ const MyClassDetails = () => {
   });
 
   const { data: classData = {}, isLoading: loadingId } = useQuery({
-    queryKey: ["classId", id],
+    queryKey: ["classData", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/enrolledClassAssignment/${id}`);
       return res.data;
@@ -107,6 +107,8 @@ const MyClassDetails = () => {
       userName: user?.displayName,
       userEmail: user?.email,
       userImage: user?.photoURL,
+      classId:classData?.classId,
+      classTitle:classData?.classTitle,
     };
     await mutateFeedback(userFeedback, {
       onSuccess: (data) => {

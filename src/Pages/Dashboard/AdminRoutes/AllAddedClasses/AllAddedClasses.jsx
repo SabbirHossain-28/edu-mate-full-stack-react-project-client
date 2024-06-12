@@ -5,10 +5,11 @@ import Container from "../../../../Shared/Container/Container";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { TbReport } from "react-icons/tb";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const AllAddedClasses = () => {
   // const axiosCommon = useAxiosCommon();
-  const axiosSecure=useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
 
   const { data: allClasses = [], refetch } = useQuery({
     queryKey: ["allClasses"],
@@ -165,15 +166,17 @@ const AllAddedClasses = () => {
                       </button>
                     </td>
                     <td>
-                      <button
-                        disabled={
-                          data?.status === "Pending" ||
-                          data?.status === "Rejected"
-                        }
-                        className="btn btn-sm"
-                      >
-                        <TbReport className="text-2xl"></TbReport>
-                      </button>
+                      <Link to={`/dashboard/addedClassProgress/${data?._id}`}>
+                        <button
+                          disabled={
+                            data?.status === "Pending" ||
+                            data?.status === "Rejected"
+                          }
+                          className="btn btn-sm"
+                        >
+                          <TbReport className="text-2xl"></TbReport>
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}

@@ -1,10 +1,19 @@
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
-import useRole from "../../../Hooks/useRole";
+// import useRole from "../../../Hooks/useRole";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const UserProfile = () => {
   const { user} = useAuth();
-  const [role] = useRole();
-  console.log(user);
+  const axiosSecure=useAxiosSecure();
+const {data:userData={}}=useQuery({
+  queryKey:["userData",user?.email],
+  queryFn:async()=>{
+    const res=await axiosSecure.get(`/users/${user?.email}`);
+    return res.data;
+  }
+})
+  console.log(userData);
   const svgs = [
     {
       svg: (
@@ -175,13 +184,13 @@ const UserProfile = () => {
   ];
   return (
     <div className="bg-slate-200 min-h-screen flex items-center justify-center">
-      <div className="flex w-[450px] flex-col items-center justify-center space-y-4 rounded-xl bg-white p-8 font-sans shadow-lg dark:bg-base-green">
+      <div className="flex w-[550px] flex-col items-center justify-center space-y-4 rounded-xl bg-base-green p-8 font-sans shadow-lg dark:bg-base-green">
         <div className="group relative">
           <img
             width={110}
             height={110}
             className="h-[110px] w-[110px] rounded-full bg-slate-500 object-cover"
-            src={user?.photoURL}
+            src={userData?.image}
             alt="card navigate ui"
           />
           <span className="absolute bottom-3 right-0 h-5 w-5 rounded-full border-[3px] border-white bg-green-500 dark:border-[#18181B]"></span>
@@ -189,35 +198,18 @@ const UserProfile = () => {
         </div>
         <div className="space-y-1 text-center">
           <h1 className="text-2xl text-gray-700 dark:text-white/90">
-            {user?.displayName}
+            {userData?.name}
           </h1>
-          <p className="text-sm text-gray-400">Role: {role}</p>
+          <p className="text-sm text-gray-400">Role: {userData?.role}</p>
           <p className="pb-2 text-center text-sm text-gray-500">
-            Email: {user?.email}
+            Email: {userData?.email}
+          </p>
+          <p className="pb-2 text-center text-sm text-gray-500">
+            Phone: {userData?.phone}
           </p>
           <p className="pb-2 text-center text-sm text-gray-500">
             User Id: {user?.uid}
           </p>
-        </div>
-        <div className="flex w-full justify-between py-2">
-          <div className="space-y-1 text-center">
-            <p className="text-gray-500 dark:text-white/70">Posts</p>
-            <p className="font-mono text-xl text-gray-700 dark:text-white/50">
-              11
-            </p>
-          </div>
-          <div className="space-y-1 text-center">
-            <p className="text-gray-500 dark:text-white/70">Following</p>
-            <p className="font-mono text-xl text-gray-700 dark:text-white/50">
-              250
-            </p>
-          </div>
-          <div className="space-y-1 text-center ">
-            <p className="text-gray-500 dark:text-white/70">Followers</p>
-            <p className="font-mono text-xl text-gray-700 dark:text-white/50">
-              11
-            </p>
-          </div>
         </div>
         {/* social icons  */}
         <div className="flex justify-between gap-4 py-2">
