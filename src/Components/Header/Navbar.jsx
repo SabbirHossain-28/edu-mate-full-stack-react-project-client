@@ -4,7 +4,7 @@ import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 
 const Navbar = () => {
-  const { user, userLogOut } = useAuth();
+  const { user, userLogOut, loading } = useAuth();
   // console.log(user);
   const navLinks = (
     <>
@@ -74,11 +74,13 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 font-poppin">{navLinks}</ul>
         </div>
         <div className="navbar-end ">
-          {!user&&<Link to="/login">
-            <button className="btn btn-xs text-[#F2871D] font-poppin md:btn-sm lg:btn-md mr-4">
-              Login
-            </button>
-          </Link>}
+          {!user && !loading && (
+            <Link to="/login">
+              <button className="btn btn-xs text-[#F2871D] font-poppin md:btn-sm lg:btn-md mr-4">
+                Login
+              </button>
+            </Link>
+          )}
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
