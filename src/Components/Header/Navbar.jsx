@@ -95,6 +95,7 @@ const Navbar = () => {
               >
                 {user && !loading ? (
                   <img
+                  referrerPolicy="no-referrer"
                   alt="Tailwind CSS Navbar component"
                   src={user?.photoURL}
                 />

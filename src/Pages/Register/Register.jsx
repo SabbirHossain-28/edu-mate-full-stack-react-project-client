@@ -13,7 +13,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, userLogOut, updateUser } = useAuth();
+  const { createUser, userLogOut, updateUser,googleLogin } = useAuth();
   const axiosCommon = useAxiosCommon();
   const navigate = useNavigate();
 
@@ -60,6 +60,34 @@ const Register = () => {
         }
       });
     }
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((userCredential) => {
+        if (userCredential) {
+          const userInfo = {
+            name: userCredential.user?.displayName,
+            email: userCredential.user?.email,
+            image:userCredential.user?.photoURL,
+            role:"Student",
+            phone:userCredential.user?.phoneNumber,
+          };
+          axiosCommon.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              Swal.fire({
+                title: "Google Login Successfull",
+                text: "You successfully login with your google account",
+                icon: "success",
+              });
+            }
+          });
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error("There is something error happen", error);
+      });
   };
 
   const handlePasswordShowToggler = () => {
@@ -317,7 +345,7 @@ const Register = () => {
                     OR
                   </span>
                 </span>
-                <button className="bg-white flex items-center text-gray-700 dark:text-gray-300 justify-center gap-x-3 text-sm sm:text-base  dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5 w-full font-inter">
+                <button onClick={handleGoogleLogin} className="bg-white flex items-center text-gray-700 dark:text-gray-300 justify-center gap-x-3 text-sm sm:text-base  dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5 w-full font-inter">
                   <svg
                     className="w-5 h-5 sm:h-6 sm:w-6"
                     viewBox="0 0 24 24"

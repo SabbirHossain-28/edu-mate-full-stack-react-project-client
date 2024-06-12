@@ -7,15 +7,17 @@ import { SiSololearn } from "react-icons/si";
 import useAuth from "../../Hooks/useAuth";
 import ReCAPTCHA from "react-google-recaptcha";
 import Swal from "sweetalert2";
+import useAxiosCommon from "../../Hooks/useAxiosCommon";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [formData, setFormData] = useState(null);
-  const { loginUser} = useAuth();
+  const { loginUser,googleLogin} = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosCommon=useAxiosCommon();
 
   const from = location.state?.from?.pathname || "/";
 
@@ -64,6 +66,34 @@ const Login = () => {
         text: "Please verify the captcha!",
       });
     }
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((userCredential) => {
+        if (userCredential) {
+          const userInfo = {
+            name: userCredential.user?.displayName,
+            email: userCredential.user?.email,
+            image:userCredential.user?.photoURL,
+            role:"Student",
+            phone:userCredential.user?.phoneNumber,
+          };
+          axiosCommon.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              Swal.fire({
+                title: "Google Login Successfull",
+                text: "You successfully login with your google account",
+                icon: "success",
+              });
+            }
+          });
+          navigate(from, { replace: true });
+        }
+      })
+      .catch((error) => {
+        console.error("There is something error happen", error);
+      });
   };
 
   const verifyChecked = (response) => {
@@ -220,7 +250,7 @@ const Login = () => {
                     OR
                   </span>
                 </span>
-                <button className="bg-white flex items-center text-gray-700 dark:text-gray-300 justify-center gap-x-3 text-sm sm:text-base  dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5 w-full font-inter">
+                <button onClick={handleGoogleLogin} className="bg-white flex items-center text-gray-700 dark:text-gray-300 justify-center gap-x-3 text-sm sm:text-base  dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5 w-full font-inter">
                   <svg
                     className="w-5 h-5 sm:h-6 sm:w-6"
                     viewBox="0 0 24 24"

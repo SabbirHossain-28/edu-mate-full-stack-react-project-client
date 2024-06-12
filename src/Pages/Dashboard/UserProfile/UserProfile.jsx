@@ -190,8 +190,9 @@ const {data:userData={}}=useQuery({
             width={110}
             height={110}
             className="h-[110px] w-[110px] rounded-full bg-slate-500 object-cover"
+            referrerPolicy="no-referrer"
             src={userData?.image}
-            alt="card navigate ui"
+            alt="User Image"
           />
           <span className="absolute bottom-3 right-0 h-5 w-5 rounded-full border-[3px] border-white bg-green-500 dark:border-[#18181B]"></span>
           <span className="absolute bottom-3 right-0 h-5 w-5 animate-ping rounded-full bg-green-500"></span>
@@ -205,7 +206,7 @@ const {data:userData={}}=useQuery({
             Email: {userData?.email}
           </p>
           <p className="pb-2 text-center text-sm text-gray-500">
-            Phone: {userData?.phone}
+            Phone: {userData?.phone?userData?.phone:"Not Provided"}
           </p>
           <p className="pb-2 text-center text-sm text-gray-500">
             User Id: {user?.uid}
