@@ -17,6 +17,7 @@ import AddedClassDetails from "../Pages/Dashboard/TeacherRoutes/MyClass/AddedCla
 import ClassDetailEnroll from "../Pages/AllClasses/ClassDetailEnroll";
 import UserProfile from "../Pages/Dashboard/UserProfile/UserProfile";
 import AdminRoute from "./AdminRoute";
+import MyClassDetails from "../Pages/Dashboard/StudentRoutes/MyClassDetails";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
       {
         path: "enrollClasses",
         element: <MyClasses></MyClasses>,
+      },
+      {
+        path: "enrollClassDetails/:id",
+        element: <MyClassDetails></MyClassDetails>,
       },
       {
         path: "userProfile",

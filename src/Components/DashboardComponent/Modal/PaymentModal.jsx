@@ -25,12 +25,12 @@ const PaymentModal = ({ handleModalClose, classDataForEnroll, refetch }) => {
   if (
     enrolledClassData.find((data) => data.classId === classDataForEnroll._id)
   ) {
-     Swal.fire({
+    Swal.fire({
       icon: "error",
       title: "Sorry!!",
       text: "You already enroll this class",
     });
-    handleModalClose()
+    handleModalClose();
   }
   return (
     <>

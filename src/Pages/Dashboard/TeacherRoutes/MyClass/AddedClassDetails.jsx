@@ -121,7 +121,7 @@ const AddedClassDetails = () => {
                 <div className="h-32 rounded-lg bg-base-green flex justify-center">
                   <div className="flex justify-center items-center gap-2 text-base-orange">
                     <div className="flex flex-col items-center">
-                      <p className="text-3xl font-bold">0</p>
+                      <p className="text-3xl font-bold">{classDetails?.totalAssignmentSubmission}</p>
                       <p className="text-2xl font-medium flex items-center">
                         <BiTask className="text-4xl" />
                         Assignment Submission
