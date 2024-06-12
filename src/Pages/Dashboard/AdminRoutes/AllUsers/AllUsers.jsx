@@ -129,12 +129,12 @@ const AllUsers = () => {
                   name="search"
                   id="Search"
                   placeholder="Search for..."
-                  className="w-full rounded-md border-gray-200 py-2.5 pe-10 shadow-sm sm:text-sm px-3"
+                  className="w-full rounded-md border-gray-200 py-3 pe-10 shadow-sm sm:text-sm px-3"
                 />
 
-                <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
+                <span className="absolute inset-y-0 right-2 grid w-10 place-content-center">
                   <input
-                    className="border mr-8 rounded-lg bg-green-500 text-white p-1"
+                    className="border mr-8 rounded-lg bg-base-orange text-white p-1"
                     type="submit"
                     value="search"
                   />
@@ -225,9 +225,9 @@ const AllUsers = () => {
                     key={idx}
                     className={`${
                       currentPage === page
-                        ? "bg-[#5ad560] text-black dark:text-white"
+                        ? "bg-base-orange text-black dark:text-white border-2 border-black"
                         : "bg-white text-gray-900 dark:text-white"
-                    }block size-8 rounded border border-gray-100  text-center leading-8 `}
+                    }block size-8 rounded   text-center leading-8 `}
                   >
                     {page}
                   </button>

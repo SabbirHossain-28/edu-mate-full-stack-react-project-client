@@ -34,7 +34,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <div className="navbar bg-[#07332F]">
+      <div className="navbar bg-[#07332F] fixed z-[99] bg-opacity-80">
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -64,7 +64,7 @@ const Navbar = () => {
               {navLinks}
             </ul>
           </div>
-          <Link className=" text-3xl font-pop text-[#151515]">
+          <Link to={"/"} className=" text-3xl font-pop text-[#151515]">
             <div className="flex items-center gap-1">
               <SiSololearn className="text-[#F2871D]"></SiSololearn>
               <p className="text-[#F2871D]">EduMate</p>

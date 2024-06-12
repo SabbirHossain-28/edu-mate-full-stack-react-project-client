@@ -3,8 +3,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
-
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { useQuery } from "@tanstack/react-query";
 import SectionHeader from "../../Shared/SectionHeader/SectionHeader";
@@ -14,7 +13,6 @@ const Feedback = () => {
   const axiosCommon = useAxiosCommon();
   const { data: feedbacksData = [], isLoading } = useQuery({
     queryKey: ["feedbacksData"],
-    // enabled:
     queryFn: async () => {
       const res = await axiosCommon.get(`/allFeedbacks`);
       return res.data;
@@ -23,7 +21,8 @@ const Feedback = () => {
   console.log(feedbacksData);
 
   return (
-    <div className="my-16 max-w-7xl mx-auto">
+    <div className="bg-slate-200 py-12">
+      <div className="max-w-7xl mx-auto">
       <div className="flex justify-center text-center mb-8">
         <SectionHeader
           title={"Hear What Our Users Have to Say"}
@@ -33,7 +32,12 @@ const Feedback = () => {
         ></SectionHeader>
       </div>
       <div className="text-center">
-        <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+        <Swiper
+          navigation={true}
+          autoplay={true}
+          modules={[Navigation, Autoplay]}
+          className="mySwiper"
+        >
           {isLoading ? (
             <div className="flex justify-center items-center">
               <Loading></Loading>
@@ -43,30 +47,30 @@ const Feedback = () => {
               {feedbacksData.map((data, idx) => (
                 <SwiperSlide key={idx}>
                   <div className=" px-12 lg:px-24">
-                    <div className="rounded-lg bg-base-green p-6 shadow-sm sm:p-8">
-                      <div className="flex items-center gap-4">
+                    <div className="rounded-lg bg-base-green p-6 sm:p-8">
+                      <div className="flex items-center gap-2">
                         <img
-                          alt=""
+                          alt="user-image"
                           src={data?.userImage}
-                          className="size-16 rounded-full object-cover"
+                          className="size-16 rounded-full object-fit"
                         />
 
                         <div>
                           <div>
+                            <p className=" text-lg font-medium text-gray-200">
+                              {data?.userName}
+                            </p>
                             <Rating
                               style={{ maxWidth: 180 }}
                               value={data.rating}
                               readOnly
                             ></Rating>
                           </div>
-
-                          <p className="mt-0.5 text-lg font-medium text-gray-200">
-                            {data?.userName}
-                          </p>
                         </div>
                       </div>
 
                       <div className="h-32">
+                        <h3 className="text-gray-400">{data?.classTitle}</h3>
                         <p className="mt-4 text-gray-400">{data?.feedback}</p>
                       </div>
                     </div>
@@ -77,6 +81,7 @@ const Feedback = () => {
           )}
         </Swiper>
       </div>
+    </div>
     </div>
   );
 };
