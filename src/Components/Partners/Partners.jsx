@@ -45,7 +45,8 @@ const partners = [
 ];
 const Partners = () => {
   return (
-    <div className="max-w-7xl mx-auto my-12">
+    <div className="bg-slate-200 py-12">
+      <div className="max-w-7xl mx-auto">
       <SectionHeader
         title={"Our Esteemed Partners and Collaborators"}
         description={
@@ -89,6 +90,7 @@ const Partners = () => {
           </div>
         ))}
       </Marquee>
+    </div>
     </div>
   );
 };
