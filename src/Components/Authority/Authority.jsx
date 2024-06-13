@@ -54,7 +54,7 @@ const Authority = () => {
                 className="flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-base-orange dark:border-gray-700 dark:hover:border-transparent hover:rotate-2 hover:scale-95 hover:transition-all hover:duration-500 hover:ease-out hover:delay-200"
               >
                 <img
-                  className="object-fit w-32 h-32 rounded-full ring-4 ring-gray-300"
+                  className="object-fit w-32 h-32 rounded-full ring-4 ring-gray-300 group-hover:ring-base-green"
                   src={data.image}
                   alt=""
                 />
