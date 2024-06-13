@@ -95,12 +95,18 @@ const Navbar = () => {
               >
                 {user && !loading ? (
                   <img
-                  referrerPolicy="no-referrer"
-                  alt="Tailwind CSS Navbar component"
-                  src={user?.photoURL}
-                />
+                    referrerPolicy="no-referrer"
+                    alt="user-image"
+                    src={user?.photoURL}
+                  />
                 ) : (
-                  <div className="flex justify-center items-center rounded-full "><IoIosContact className="text-gray-200 text-5xl"></IoIosContact></div>
+                  <div className="flex justify-center items-center ">
+                    {loading ? (
+                        <p className="text-base-orange text-xs pt-3">Loading...</p>
+                    ) : (
+                      <IoIosContact className="text-gray-200 size-11 border-2 rounded-full"></IoIosContact>
+                    )}
+                  </div>
                 )}
               </div>
             </div>

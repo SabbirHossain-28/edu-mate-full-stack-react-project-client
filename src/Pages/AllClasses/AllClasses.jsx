@@ -27,51 +27,41 @@ const AllClasses = () => {
           ></SectionHeader>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             {acceptedClass.map((classData, idx) => (
-              <div
-                key={idx}
-                className="group relative block h-64 sm:h-80 lg:h-96"
-              >
-                <span className="absolute inset-0 border-2 border-dashed border-black rounded-lg"></span>
-
-                <div className="relative flex h-full transform items-end border-2 border-black bg-base-green rounded-lg transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2">
-                  <div className="p-4 !pt-0 transition-opacity group-hover:absolute group-hover:opacity-0 sm:p-6 lg:p-8">
-                    <img
-                      className="w-full h-64 object-cover rounded-lg"
-                      src={classData.classImage}
-                      alt=""
-                    />
-
-                    <div className="h-12 text-center">
-                      <h2 className="mt-4 text-xl text-base-orange font-medium sm:text-2xl">
-                        {classData?.classTitle}
-                      </h2>
-                    </div>
-                  </div>
-
-                  <div className="absolute p-4 opacity-0 transition-opacity group-hover:relative group-hover:opacity-100 sm:p-6 lg:p-8 text-base-orange font-poppin">
-                    <img
-                      className="w-24 h-24 rounded-xl"
-                      src={classData?.teacherImage}
-                      alt=""
-                    />
-                    <h3 className="mt-4 text-xl font-medium sm:text-2xl">
-                      Teacher Name:{classData?.teacherName}
-                    </h3>
-                    <h3 className="mt-4 text-xl font-medium sm:text-2xl">
-                      Total Enrollment:{classData?.totalEnrollment}
-                    </h3>
-                    <p className="mt-4 text-lg sm:text-base">
-                      {classData?.classDescription.split("").slice(0, 70)}...
-                    </p>
-
-                    <Link to={`/classDetail-enroll/${classData?._id}`}>
-                      <button className="border text-lg font-bold px-3 py-1 mt-4 rounded-lg bg-base-orange text-base-green border-none hover:scale-95 transition-all ease-in duration-200 hover:text-white">
+              <div key={idx} className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-base-green text-gray-100">
+              <div className="flex space-x-4">
+                <img alt="user-image" src={classData?.teacherImage} className="object-cover w-12 h-12 rounded-full shadow bg-gray-500" />
+                <div className="flex flex-col space-y-1">
+                  <a rel="noopener noreferrer" className="text-sm font-semibold">{classData?.teacherName}</a>
+                  <span className="text-xs text-gray-400">{classData?.teacherEmail}</span>
+                </div>
+              </div>
+              <div>
+                <img src={classData?.classImage} alt="class-image" className="object-fit w-full mb-4 h-60  md:h-60 bg-gray-500" />
+                <h2 className="mb-2 text-xl font-semibold h-12">{classData?.classTitle}</h2>
+                <p className="text-sm text-gray-400">{classData?.classDescription.split("").slice(0,90)}......</p>
+              </div>
+              <div className="flex flex-wrap items-center justify-between">
+                <div className="space-x-2">
+                  <button aria-label="Share this post" type="button" className="p-2 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4 fill-current text-base-orange">
+                      <path d="M404,344a75.9,75.9,0,0,0-60.208,29.7L179.869,280.664a75.693,75.693,0,0,0,0-49.328L343.792,138.3a75.937,75.937,0,1,0-13.776-28.976L163.3,203.946a76,76,0,1,0,0,104.108l166.717,94.623A75.991,75.991,0,1,0,404,344Zm0-296a44,44,0,1,1-44,44A44.049,44.049,0,0,1,404,48ZM108,300a44,44,0,1,1,44-44A44.049,44.049,0,0,1,108,300ZM404,464a44,44,0,1,1,44-44A44.049,44.049,0,0,1,404,464Z"></path>
+                    </svg>
+                  </button>
+                  <button aria-label="Bookmark this post" type="button" className="p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4 fill-current text-base-orange">
+                      <path d="M424,496H388.75L256.008,381.19,123.467,496H88V16H424ZM120,48V456.667l135.992-117.8L392,456.5V48Z"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div className="flex space-x-2 text-sm text-gray-400">
+                <Link to={`/classDetail-enroll/${classData?._id}`}>
+                      <button className="border text-lg font-bold px-3 py-1  rounded-lg bg-base-orange text-base-green border-none hover:scale-95 transition-all ease-in duration-200 hover:text-white">
                         Enroll
                       </button>
                     </Link>
-                  </div>
                 </div>
               </div>
+            </div>
             ))}
           </div>
         </div>
