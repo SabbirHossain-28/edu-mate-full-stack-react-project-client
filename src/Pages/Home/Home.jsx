@@ -1,3 +1,4 @@
+import Authority from "../../Components/Authority/Authority";
 import Banner from "../../Components/Banner/Banner";
 import Feedback from "../../Components/Feedback/Feedback";
 import Partners from "../../Components/Partners/Partners";
@@ -10,6 +11,7 @@ const Home = () => {
             <Partners></Partners>
             <Teaching></Teaching>
             <Feedback></Feedback>
+            <Authority></Authority>
         </div>
     );
 };
