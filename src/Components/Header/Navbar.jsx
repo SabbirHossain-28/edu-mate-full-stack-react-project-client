@@ -3,9 +3,11 @@ import { SiSololearn } from "react-icons/si";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { IoIosContact } from "react-icons/io";
+import useRole from "../../Hooks/useRole"
 
 const Navbar = () => {
   const { user, userLogOut, loading } = useAuth();
+  const [role]=useRole();
   // console.log(user);
   const navLinks = (
     <>
@@ -116,7 +118,7 @@ const Navbar = () => {
             >
               <li>
                 <p className="justify-between">
-                  {user ? user?.displayName : "User not available"}
+                  {user ? user?.displayName : "User not available"}({role ? role:"?"})
                 </p>
               </li>
               <li>
