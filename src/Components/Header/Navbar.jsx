@@ -122,7 +122,7 @@ const Navbar = () => {
                 </p>
               </li>
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/dashboard/userProfile">Dashboard</Link>
               </li>
               <li>
                 <button
