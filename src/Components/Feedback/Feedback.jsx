@@ -52,7 +52,7 @@ const Feedback = () => {
                         <img
                           alt="user-image"
                           src={data?.userImage}
-                          className="size-16 rounded-full object-fit"
+                          className="w-12 h-12 rounded-full object-fit"
                         />
 
                         <div>

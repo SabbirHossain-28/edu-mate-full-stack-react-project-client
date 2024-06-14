@@ -4,6 +4,7 @@ import EduMateFaq from "../../Components/EduMateFaq/EduMateFaq";
 // import FAQ from "../../Components/EduMateFaq/EduMateFaq";
 import Feedback from "../../Components/Feedback/Feedback";
 import Partners from "../../Components/Partners/Partners";
+import PopularClass from "../../Components/PopularClass/PopularClass";
 import Teaching from "../../Components/Teaching/Teaching";
 
 const Home = () => {
@@ -14,7 +15,7 @@ const Home = () => {
             <Teaching></Teaching>
             <Feedback></Feedback>
             <Authority></Authority>
-            {/* <FAQ></FAQ> */}
+            <PopularClass></PopularClass>
             <EduMateFaq></EduMateFaq>
         </div>
     );

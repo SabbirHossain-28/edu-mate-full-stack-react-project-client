@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import useRole from "../../Hooks/useRole";
 import NavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/NavlinkMenu";
 import TeacherNavlinkMenu from "../../Components/DashboardComponent/NavlinkMenu/TeacherNavlinkMenu/TeacherNavlinkMenu";
@@ -16,10 +16,18 @@ const DashboardLayout = () => {
   const [role] = useRole();
   const [isActive, setActive] = useState(false);
   const { userLogOut } = useAuth();
+  const navigate=useNavigate();
 
   const handleToggle = () => {
     setActive(!isActive);
   };
+
+  const handleLogOut=()=>{
+    userLogOut()
+    .then(()=>{
+      navigate("/")
+    })
+  }
   return (
     <div className="relative min-h-screen md:flex">
       {/* Sidebar */}
@@ -92,7 +100,7 @@ const DashboardLayout = () => {
             icon={TiHomeOutline}
           ></NavlinkMenu>
           <button
-            onClick={userLogOut}
+            onClick={handleLogOut}
             className="flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
           >
             <RiLogoutCircleLine className="w-5 h-5" />
