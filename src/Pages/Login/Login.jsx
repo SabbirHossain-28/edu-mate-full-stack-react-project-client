@@ -302,7 +302,10 @@ const Login = () => {
           </div>
           {isModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-              <div className="modal-box rounded p-8">
+              <div className="modal-box bg-base-green rounded p-8">
+                <div className="text-center mb-4">
+                  <h2 className="text-xl font-pop text-base-orange">Validate The CAPTCHA For Continue Login</h2>
+                </div>
                 <form onSubmit={handleValidateCaptcha}>
                   <ReCAPTCHA
                     className="flex justify-center mb-4"
@@ -312,7 +315,7 @@ const Login = () => {
                   <div className="flex justify-center">
                     <button
                       type="submit"
-                      className="border py-2 px-3 rounded-lg bg-[#cd9035b3] text-white "
+                      className="border-none py-2 px-3 rounded-lg bg-base-orange text-white "
                     >
                       Validate Captcha
                     </button>

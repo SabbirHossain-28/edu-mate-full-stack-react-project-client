@@ -42,7 +42,7 @@ const ClassDetailEnroll = () => {
   return (
     <div>
       <Container>
-        <div>
+        <div className="bg-slate-200 py-16">
           <div className="mb-8 text-center">
             <h2 className="text-4xl bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-yellow-500 font-poppin font-bold">
               Wellcome! &#39;{user?.displayName}&#39; in{" "}
@@ -64,7 +64,7 @@ const ClassDetailEnroll = () => {
               <div className="lg:flex lg:-mx-6">
                 <div className="lg:w-3/4 lg:px-6">
                   <img
-                    className="object-cover object-center w-full h-80 xl:h-[28rem] rounded-xl"
+                    className="object-fit object-center w-full h-80 xl:h-[28rem] rounded-xl"
                     src={classDataForEnroll?.classImage}
                     alt=""
                   />

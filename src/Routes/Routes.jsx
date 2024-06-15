@@ -19,6 +19,7 @@ import UserProfile from "../Pages/Dashboard/UserProfile/UserProfile";
 import AdminRoute from "./AdminRoute";
 import MyClassDetails from "../Pages/Dashboard/StudentRoutes/MyClassDetails";
 import AddedClassProgress from "../Pages/Dashboard/AdminRoutes/AllAddedClasses/AddedClassProgress";
+import MyOrder from "../Pages/Dashboard/StudentRoutes/MyOrder/MyOrder";
 
 export const router = createBrowserRouter([
   {
@@ -70,9 +71,9 @@ export const router = createBrowserRouter([
       {
         path: "userProfile",
         element: (
-          <private>
+          <PrivateRoute>
             <UserProfile></UserProfile>
-          </private>
+          </PrivateRoute>
         ),
       },
       {
@@ -84,6 +85,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "myOrder",
+        element: (
+          <PrivateRoute>
+            <MyOrder></MyOrder>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "enrollClassDetails/:id",
         element: (
           <PrivateRoute>
@@ -91,7 +100,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      
+
       {
         path: "allUsers",
         element: (

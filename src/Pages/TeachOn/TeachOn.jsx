@@ -159,173 +159,177 @@ const TeachOn = () => {
 
   return (
     <Container>
-      <div className="pt-4">
-        <SectionHeader
-          title={"Apply to Teach on EduMate"}
-          description={
-            "EduMate allows you to apply for a teaching position by filling out the required form. Share your details, choose your experience level, and select the category you wish to teach. Submit your application for review, and our admin team will process your request. If approved, you'll join our community as a teacher."
-          }
-        ></SectionHeader>
-        {hasRejected && (
-          <div className="text-center mt-4">
-            <p className="text-red-500 font-raleWay font-bold">
-              Sorry! Your request for wanted to be a teacher in our platform is
-              rejected by Admin....You can try for another request.
-            </p>
-          </div>
-        )}
-      </div>
-      <div className="pb-12">
-        <div className="max-w-4xl mx-auto mt-10 p-5 border border-gray-600 rounded-lg shadow-xl">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-4">
-              <label className="block mb-2 text-sm font-bold text-gray-700">
-                Name
-              </label>
-              <input
-                type="text"
-                defaultValue={userData?.name}
-                disabled
-                className={`w-full px-3 py-2 border border-gray-300 bg-white  rounded-lg`}
-                {...register("name")}
-              />
+      <div className="py-16">
+        <div className="pt-4 ">
+          <SectionHeader
+            title={"Apply to Teach on EduMate"}
+            description={
+              "EduMate allows you to apply for a teaching position by filling out the required form. Share your details, choose your experience level, and select the category you wish to teach. Submit your application for review, and our admin team will process your request. If approved, you'll join our community as a teacher."
+            }
+          ></SectionHeader>
+          {hasRejected && (
+            <div className="text-center mt-4">
+              <p className="text-red-500 font-raleWay font-bold">
+                Sorry! Your request for wanted to be a teacher in our platform
+                is rejected by Admin....You can try for another request.
+              </p>
             </div>
-
-            <div className="mb-4 flex items-center gap-2">
-              <div className="flex-1">
+          )}
+        </div>
+        <div className="pb-12">
+          <div className="max-w-4xl mx-auto mt-10 p-5 border border-gray-600 rounded-lg shadow-xl">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-4">
                 <label className="block mb-2 text-sm font-bold text-gray-700">
-                  Profile Image
+                  Name
                 </label>
                 <input
-                  type="file"
-                  className="w-full px-3 py-2 border-gray-300 bg-white rounded-lg border"
-                  {...register("profileImage")}
-                  onChange={(e) => {
-                    setProfileImage(URL.createObjectURL(e.target.files[0]));
-                    setIsImageChanged(true);
-                  }}
+                  type="text"
+                  defaultValue={userData?.name}
+                  disabled
+                  className={`w-full px-3 py-2 border border-gray-300 bg-white  rounded-lg`}
+                  {...register("name")}
                 />
               </div>
-              <div>
-                {profileImage && (
-                  <img
-                    src={profileImage}
-                    alt="Profile Preview"
-                    className="mt-2 w-20 h-20 object-cover rounded-xl"
+
+              <div className="mb-4 flex items-center gap-2">
+                <div className="flex-1">
+                  <label className="block mb-2 text-sm font-bold text-gray-700">
+                    Profile Image
+                  </label>
+                  <input
+                    type="file"
+                    className="w-full px-3 py-2 border-gray-300 bg-white rounded-lg border"
+                    {...register("profileImage")}
+                    onChange={(e) => {
+                      setProfileImage(URL.createObjectURL(e.target.files[0]));
+                      setIsImageChanged(true);
+                    }}
                   />
+                </div>
+                <div>
+                  {profileImage && (
+                    <img
+                      src={profileImage}
+                      alt="Profile Preview"
+                      className="mt-2 w-20 h-20 object-cover rounded-xl"
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label className="block mb-2 text-sm font-bold text-gray-700">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className="w-full px-3 py-2 border border-gray-300 bg-white rounded-lg"
+                  defaultValue={userData.email}
+                  disabled
+                  {...register("email")}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block mb-2 text-sm font-bold text-gray-700">
+                  Experience Level
+                </label>
+                <select
+                  className={`w-full px-3 py-2 border ${
+                    errors.experience ? "border-red-500" : "border-gray-300"
+                  } rounded-lg`}
+                  defaultValue=""
+                  {...register("experience", {
+                    required: "Experience level is required",
+                  })}
+                >
+                  <option value="" disabled>
+                    Select your experience level
+                  </option>
+                  <option value="beginner">Beginner</option>
+                  <option value="mid-level">Mid-level</option>
+                  <option value="experienced">Experienced</option>
+                </select>
+                {errors.experience && (
+                  <span className="text-red-500 text-sm">
+                    {errors.experience.message}
+                  </span>
                 )}
               </div>
-            </div>
 
-            <div className="mb-4">
-              <label className="block mb-2 text-sm font-bold text-gray-700">
-                Email
-              </label>
-              <input
-                type="email"
-                className="w-full px-3 py-2 border border-gray-300 bg-white rounded-lg"
-                defaultValue={userData.email}
-                disabled
-                {...register("email")}
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block mb-2 text-sm font-bold text-gray-700">
-                Experience Level
-              </label>
-              <select
-                className={`w-full px-3 py-2 border ${
-                  errors.experience ? "border-red-500" : "border-gray-300"
-                } rounded-lg`}
-                defaultValue=""
-                {...register("experience", {
-                  required: "Experience level is required",
-                })}
-              >
-                <option value="" disabled>
-                  Select your experience level
-                </option>
-                <option value="beginner">Beginner</option>
-                <option value="mid-level">Mid-level</option>
-                <option value="experienced">Experienced</option>
-              </select>
-              {errors.experience && (
-                <span className="text-red-500 text-sm">
-                  {errors.experience.message}
-                </span>
-              )}
-            </div>
-
-            <div className="mb-4">
-              <label className="block mb-2 text-sm font-bold text-gray-700">
-                Title
-              </label>
-              <input
-                type="text"
-                className={`w-full px-3 py-2 border ${
-                  errors.title ? "border-red-500" : "border-gray-300"
-                } rounded-lg`}
-                placeholder="Enter the title"
-                {...register("title", { required: "Title is required" })}
-              />
-              {errors.title && (
-                <span className="text-red-500 text-sm">
-                  {errors.title.message}
-                </span>
-              )}
-            </div>
-
-            <div className="mb-4">
-              <label className="block mb-2 text-sm font-bold text-gray-700">
-                Category
-              </label>
-              <select
-                className={`w-full px-3 py-2 border ${
-                  errors.category ? "border-red-500" : "border-gray-300"
-                } rounded-lg`}
-                defaultValue=""
-                {...register("category", { required: "Category is required" })}
-              >
-                <option value="" disabled>
-                  Select a category
-                </option>
-                <option value="web development">Web Development</option>
-                <option value="digital marketing">Digital Marketing</option>
-                <option value="graphic design">Graphic Design</option>
-                <option value="data science">Data Science</option>
-                <option value="project management">Project Management</option>
-              </select>
-              {errors.category && (
-                <span className="text-red-500 text-sm">
-                  {errors.category.message}
-                </span>
-              )}
-            </div>
-            {hasRejected ? (
-              <button
-                type="submit"
-                className="w-full py-3 mt-4 text-center text-white bg-base-green rounded-lg hover:bg-blue-700"
-              >
-                {loading ? (
-                  <ImSpinner9 className="animate-spin text-2xl text-base-orange m-auto" />
-                ) : (
-                  "Request to another"
+              <div className="mb-4">
+                <label className="block mb-2 text-sm font-bold text-gray-700">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  className={`w-full px-3 py-2 border ${
+                    errors.title ? "border-red-500" : "border-gray-300"
+                  } rounded-lg`}
+                  placeholder="Enter the title"
+                  {...register("title", { required: "Title is required" })}
+                />
+                {errors.title && (
+                  <span className="text-red-500 text-sm">
+                    {errors.title.message}
+                  </span>
                 )}
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="w-full py-3 mt-4 text-center text-white bg-base-green rounded-lg hover:bg-blue-700"
-              >
-                {loading ? (
-                  <ImSpinner9 className="animate-spin text-2xl text-base-orange m-auto" />
-                ) : (
-                  "Submit for Review"
+              </div>
+
+              <div className="mb-4">
+                <label className="block mb-2 text-sm font-bold text-gray-700">
+                  Category
+                </label>
+                <select
+                  className={`w-full px-3 py-2 border ${
+                    errors.category ? "border-red-500" : "border-gray-300"
+                  } rounded-lg`}
+                  defaultValue=""
+                  {...register("category", {
+                    required: "Category is required",
+                  })}
+                >
+                  <option value="" disabled>
+                    Select a category
+                  </option>
+                  <option value="web development">Web Development</option>
+                  <option value="digital marketing">Digital Marketing</option>
+                  <option value="graphic design">Graphic Design</option>
+                  <option value="data science">Data Science</option>
+                  <option value="project management">Project Management</option>
+                </select>
+                {errors.category && (
+                  <span className="text-red-500 text-sm">
+                    {errors.category.message}
+                  </span>
                 )}
-              </button>
-            )}
-          </form>
+              </div>
+              {hasRejected ? (
+                <button
+                  type="submit"
+                  className="w-full py-3 mt-4 text-center text-white bg-base-green rounded-lg hover:bg-base-orange"
+                >
+                  {loading ? (
+                    <ImSpinner9 className="animate-spin text-2xl text-base-orange m-auto" />
+                  ) : (
+                    "Request to another"
+                  )}
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full py-3 mt-4 text-center text-white bg-base-green rounded-lg hover:bg-base-orange"
+                >
+                  {loading ? (
+                    <ImSpinner9 className="animate-spin text-2xl text-base-orange m-auto" />
+                  ) : (
+                    "Submit for Review"
+                  )}
+                </button>
+              )}
+            </form>
+          </div>
         </div>
       </div>
     </Container>

@@ -18,7 +18,7 @@ const AllClasses = () => {
   return (
     <div>
       <Container>
-        <div className="min-h-screen">
+        <div className="min-h-screen py-16">
           <SectionHeader
             title={"Explore Our Available Classes"}
             description={
