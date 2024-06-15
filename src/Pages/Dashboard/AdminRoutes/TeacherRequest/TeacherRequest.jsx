@@ -18,7 +18,7 @@ const TeacherRequest = () => {
   } = useQuery({
     queryKey: ["applications",currentPage],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/applications?page=${currentPage}&size=${5}`);
+      const res = await axiosSecure.get(`/applications?page=${currentPage}&size=${10}`);
       return res.data;
     },
   });
@@ -31,7 +31,7 @@ const TeacherRequest = () => {
     }
   })
 
-  const numberOfPages = Math.ceil(count / 5);
+  const numberOfPages = Math.ceil(count / 10);
   const pages = [
     ...Array(numberOfPages)
       .keys()

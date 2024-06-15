@@ -37,7 +37,7 @@ const AllClasses = () => {
               </div>
               <div>
                 <img src={classData?.classImage} alt="class-image" className="object-fit w-full mb-4 h-60  md:h-60 bg-gray-500" />
-                <h2 className="mb-2 text-xl font-semibold h-12">{classData?.classTitle}</h2>
+                <h2 className="mb-2 text-base lg:text-xl font-semibold h-12">{classData?.classTitle}</h2>
                 <p className="text-sm text-gray-400">{classData?.classDescription.split("").slice(0,90)}......</p>
               </div>
               <div className="flex flex-wrap items-center justify-between">

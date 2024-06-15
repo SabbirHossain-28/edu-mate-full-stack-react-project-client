@@ -40,7 +40,7 @@ const AddedClassProgress = () => {
               Currently no feedback is available for this class.....{" "}
             </p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
               {feedbacksData.map((data, idx) => (
                 <div
                   key={idx}
