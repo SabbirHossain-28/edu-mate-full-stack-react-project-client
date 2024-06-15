@@ -50,7 +50,9 @@ const Register = () => {
                   title: "Registration Successfull",
                   text: `Welcome! ${data?.name} You are now member of EduMate.Please login to explore`,
                   icon: "success",
-                  confirmButtonColor: "#3085d6",
+                  confirmButtonColor: "#F2871D",
+                  background: "#07332F",
+                  color: "#F2871D",
                 }).then((result) => {
                   if (result.isConfirmed) {
                     setLoading(false);
@@ -83,6 +85,8 @@ const Register = () => {
                 title: "Google Login Successfull",
                 text: "You successfully login with your google account",
                 icon: "success",
+                background: "#07332F",
+                color: "#F2871D",
               });
             }
           });
@@ -99,7 +103,11 @@ const Register = () => {
   };
 
   if (loading) {
-    return <div className="flex justify-center items-center min-h-screen"><Loading></Loading></div>
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Loading></Loading>
+      </div>
+    );
   }
   return (
     <div className="py-24">

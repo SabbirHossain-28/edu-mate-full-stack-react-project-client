@@ -74,7 +74,9 @@ const AllUsers = () => {
       text: "Do you want to make this user an admin?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      background: "#07332F",
+      color: "#F2871D",
+      confirmButtonColor: "#F2871D",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, make admin",
     }).then(async (result) => {
@@ -87,6 +89,8 @@ const AllUsers = () => {
                 title: "Success",
                 text: "User has been made an admin successfully.",
                 icon: "success",
+                background: "#07332F",
+                color: "#F2871D",
               });
               refetch();
             }
@@ -98,6 +102,8 @@ const AllUsers = () => {
               title: "Error",
               text: "There was an error making the user an admin.",
               icon: "error",
+              background: "#07332F",
+              color: "#F2871D",
             });
             setLoadingUserId(null);
           },
@@ -159,10 +165,22 @@ const AllUsers = () => {
                   <tr key={idx}>
                     <td>
                       <div className="flex items-center gap-3">
-                        <div className="avatar">
+                        <div
+                          className={`avatar  ${
+                            data?.role === "Admin" &&
+                            "border-4 rounded-2xl border-green-500"
+                          } ${
+                            data?.role === "Student" &&
+                            "border-4 rounded-2xl border-orange-500"
+                          } ${
+                            data?.role === "Teacher" &&
+                            "border-4 rounded-2xl border-blue-500"
+                          }`}
+                        >
                           <div className="mask mask-squircle w-12 h-12">
                             <img
                               src={data?.image}
+                              referrerPolicy="no-referrer"
                               alt="Avatar Tailwind CSS Component"
                             />
                           </div>
@@ -171,15 +189,23 @@ const AllUsers = () => {
                     </td>
                     <td>{data?.name}</td>
                     <td>{data?.email}</td>
-                    <td>{data?.role}</td>
+                    <td
+                      className={`font-semibold ${
+                        data?.role === "Admin" && "text-green-500"
+                      } ${data?.role === "Teacher" && "text-blue-500"} ${
+                        data?.role === "Student" && "text-orange-500"
+                      }`}
+                    >
+                      {data?.role}
+                    </td>
                     <td>
                       <button
                         onClick={() => handleUserRole(data?._id)}
-                        className={`btn ${
+                        className={` ${
                           data?.role === "Admin"
-                            ? "bg-gray-400"
+                            ? "bg-green-500"
                             : "bg-base-orange"
-                        } border-none btn-sm`}
+                        } border-none p-2 rounded-lg`}
                         disabled={
                           data?.role === "Admin" || loadingUserId === data?._id
                         }

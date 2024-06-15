@@ -17,7 +17,7 @@ const ClassDetailEnroll = () => {
   const [role] = useRole();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data: classDataForEnroll = {},refetch } = useQuery({
+  const { data: classDataForEnroll = {}, refetch } = useQuery({
     queryKey: ["classDataForEnroll", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/class/${id}`);
@@ -30,6 +30,8 @@ const ClassDetailEnroll = () => {
         icon: "error",
         title: "Enroll Restricted",
         text: `Sorry!!${user?.displayName}.Teacher or Admin can not enroll any class`,
+        background: "#07332F",
+        color: "#F2871D",
       });
     }
     setIsModalOpen(true);

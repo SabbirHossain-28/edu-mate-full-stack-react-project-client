@@ -107,8 +107,8 @@ const MyClassDetails = () => {
       userName: user?.displayName,
       userEmail: user?.email,
       userImage: user?.photoURL,
-      classId:classData?.classId,
-      classTitle:classData?.classTitle,
+      classId: classData?.classId,
+      classTitle: classData?.classTitle,
     };
     await mutateFeedback(userFeedback, {
       onSuccess: (data) => {
@@ -117,9 +117,11 @@ const MyClassDetails = () => {
             title: "Successfully Submitted feedback!",
             text: "Your valuable feedback is submitted successfully",
             icon: "success",
+            background: "#07332F",
+            color: "#F2871D",
           });
           setLoading(false);
-          setUserRating(0)
+          setUserRating(0);
           handleModalClose();
         }
       },
@@ -176,9 +178,9 @@ const MyClassDetails = () => {
               for this class.Keep learning and keep exploring...{" "}
             </p>
           ) : (
-            <div className="overflow-x-auto bg-white border-2 border-black">
+            <div className="overflow-x-auto bg-base-green p-2 border-2 border-black">
               <table className="table">
-                <thead className="text-gray-500">
+                <thead className="text-gray-300">
                   <tr>
                     <th>Assignment Title</th>
                     <th>Description</th>
@@ -186,7 +188,7 @@ const MyClassDetails = () => {
                     <th>Submit</th>
                   </tr>
                 </thead>
-                <tbody className="text-gray-600">
+                <tbody className="text-gray-400">
                   {allAssignments.map((data, idx) => (
                     <tr key={idx}>
                       <td>{data?.assignmentTitle}</td>

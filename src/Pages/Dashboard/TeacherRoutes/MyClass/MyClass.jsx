@@ -17,7 +17,7 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 const MyClass = () => {
   const { user } = useAuth();
   // const axiosCommon = useAxiosCommon();
-  const axiosSecure=useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedClass, setSelectedClass] = useState(null);
   const [classImage, setClassImage] = useState("");
@@ -58,7 +58,9 @@ const MyClass = () => {
       text: "Your added class will be delete permanently!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      background: "#07332F",
+      color: "#F2871D",
+      confirmButtonColor: "#F2871D",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
@@ -70,6 +72,8 @@ const MyClass = () => {
                 title: "Deleted!",
                 text: `${classTitle} class has been deleted.`,
                 icon: "success",
+                background: "#07332F",
+                color: "#F2871D",
               });
               refetch();
             }
@@ -133,6 +137,8 @@ const MyClass = () => {
             title: "Update Successfull",
             text: "Your class data has been updated successfully.",
             icon: "success",
+            background: "#07332F",
+            color: "#F2871D",
           });
           setLoading(false);
           reset();
@@ -186,9 +192,9 @@ const MyClass = () => {
     <div className="bg-slate-200 min-h-screen my-auto">
       <Container>
         <div className="pt-16">
-          <div className="overflow-x-auto bg-white border-2 border-black">
+          <div className="overflow-x-auto bg-base-green border-2 border-black">
             <table className="table">
-              <thead className="text-gray-500">
+              <thead className="text-gray-300">
                 <tr>
                   <th>Teacher Image</th>
                   <th>Teacher Name</th>
@@ -203,7 +209,7 @@ const MyClass = () => {
                   <th>Details</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-600">
+              <tbody className="text-gray-400">
                 {requestedClasses.map((data, idx) => (
                   <tr key={idx}>
                     <td>
@@ -223,7 +229,7 @@ const MyClass = () => {
                     <td>{data?.classTitle}</td>
                     <td>
                       <div className="flex items-center gap-3">
-                        <div className="avatar">
+                        <div className={`avatar border-4 rounded-2xl ${data?.status === "Pending" && "border-base-orange"} ${data?.status === "Accepted" && "border-green-500"} ${data?.status === "Rejected" && "border-red-500"}`}>
                           <div className="mask mask-squircle w-12 h-12">
                             <img
                               src={data?.classImage}
@@ -237,11 +243,11 @@ const MyClass = () => {
                     <td>
                       {data?.classDescription.split("").slice(0, 40)}.......
                     </td>
-                    <td>{data?.status}</td>
+                    <td className={`${data?.status === "Accepted" && "font-semibold text-green-500"} ${data?.status === "Pending" && "font-semibold text-blue-500"}${data?.status === "Rejected" && "font-semibold text-red-500"}`} >{data?.status}</td>
                     <td>
                       <button
                         onClick={() => handleModalOpen(data)}
-                        className="btn btn-sm"
+                        className="p-2 rounded-lg bg-base-orange text-[#151515] hover:scale-95"
                       >
                         <LuClipboardEdit className="text-xl"></LuClipboardEdit>
                       </button>
@@ -251,7 +257,7 @@ const MyClass = () => {
                         onClick={() =>
                           handleClassDelete(data?._id, data?.classTitle)
                         }
-                        className="btn btn-sm"
+                        className="p-2 rounded-lg bg-red-500 text-[#151515] hover:scale-95"
                       >
                         <RiDeleteBin2Line className="text-xl"></RiDeleteBin2Line>
                       </button>
@@ -263,8 +269,10 @@ const MyClass = () => {
                             data?.status === "Pending" ||
                             data?.status === "Rejected"
                           }
-                          className={`btn btn-sm ${
-                            data?.status === "Accepted" && "bg-green-500"
+                          className={`p-2 rounded-lg  text-[#151515] ${
+                            data?.status === "Accepted" && "bg-green-500 hover:scale-95"
+                          } ${
+                            data?.status === "Rejected" && "bg-red-500"
                           }`}
                         >
                           <TbListDetails className="text-xl"></TbListDetails>

@@ -2,7 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import "./CheckoutForm";
+import "./CheckoutForm.css";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import PropTypes from "prop-types";
@@ -53,6 +53,8 @@ const CheckoutForm = ({ classDataForEnroll, refetch }) => {
       return Swal.fire({
         icon: "error",
         title: "Oops...",
+        background: "#07332F",
+        color: "#F2871D",
         text: `${error.message}`,
       });
     } else {
@@ -99,6 +101,8 @@ const CheckoutForm = ({ classDataForEnroll, refetch }) => {
               title: "Payment Successfull",
               text: `Welcome!${user?.displayName}.You are successfully enroll the ${classDataForEnroll?.classTitle} class`,
               icon: "success",
+              background: "#07332F",
+              color: "#F2871D",
             });
             refetch();
             navigate("/dashboard/enrollClasses");
@@ -110,6 +114,8 @@ const CheckoutForm = ({ classDataForEnroll, refetch }) => {
             title: "Error!",
             text: "An error occurred while payment for this class",
             icon: "error",
+            background: "#07332F",
+            color: "#F2871D",
           });
         },
       });
@@ -138,11 +144,11 @@ const CheckoutForm = ({ classDataForEnroll, refetch }) => {
           }}
         />
         <button
-          className="btn btn-primary w-full shadow-lg mt-8"
+          className="btn bg-base-orange text-white text-lg font-semibold w-full shadow-lg mt-8"
           type="submit"
-          disabled={!stripe}
+          disabled={!stripe || !clientSecret}
         >
-          Pay
+          Submit Payment
         </button>
       </form>
     </div>

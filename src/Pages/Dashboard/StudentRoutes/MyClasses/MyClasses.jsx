@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 const MyClasses = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
+  
   const { data: enrolledClassData = [] } = useQuery({
     queryKey: ["enrolledClassData", user?.email],
     enabled: !loading && !!user?.email,
@@ -25,7 +26,7 @@ const MyClasses = () => {
             {enrolledClassData.map((data, idx) => (
               <div
                 key={idx}
-                className="max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 hover:scale-95 hover:transition-all hover:ease-in hover:duration-200"
+                className="max-w-2xl overflow-hidden bg-base-green rounded-lg shadow-md  hover:scale-95 hover:transition-all hover:ease-in hover:duration-200"
               >
                 <img
                   className="object-fit w-full h-64"

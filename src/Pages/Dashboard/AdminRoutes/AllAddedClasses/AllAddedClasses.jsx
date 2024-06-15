@@ -6,12 +6,16 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { TbReport } from "react-icons/tb";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Loading from "../../../../Shared/Loading/Loading";
 
 const AllAddedClasses = () => {
-  // const axiosCommon = useAxiosCommon();
   const axiosSecure = useAxiosSecure();
 
-  const { data: allClasses = [], refetch } = useQuery({
+  const {
+    data: allClasses = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["allClasses"],
     queryFn: async () => {
       const res = await axiosSecure.get("/classes");
@@ -32,7 +36,9 @@ const AllAddedClasses = () => {
       text: `Are you want accepted the ${classTitle} class`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      background: "#07332F",
+      color: "#F2871D",
+      confirmButtonColor: "#F2871D",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, accept it!",
     }).then(async (result) => {
@@ -44,6 +50,8 @@ const AllAddedClasses = () => {
                 title: "Class Accepted",
                 text: `${classTitle} class is accepted successfully.`,
                 icon: "success",
+                background: "#07332F",
+                color: "#F2871D",
               });
               refetch();
             }
@@ -54,6 +62,8 @@ const AllAddedClasses = () => {
               title: "Error",
               text: "There was an error approving the class",
               icon: "error",
+              background: "#07332F",
+              color: "#F2871D",
             });
           },
         });
@@ -74,7 +84,9 @@ const AllAddedClasses = () => {
       text: `Are you want reject the ${classTitle} class`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      background: "#07332F",
+      color: "#F2871D",
+      confirmButtonColor: "#F2871D",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, reject it!",
     }).then(async (result) => {
@@ -86,6 +98,8 @@ const AllAddedClasses = () => {
                 title: "Rejected Successfully",
                 text: `${classTitle} class is rejected successfully.`,
                 icon: "success",
+                background: "#07332F",
+                color: "#F2871D",
               });
               refetch();
             }
@@ -96,19 +110,29 @@ const AllAddedClasses = () => {
               title: "Error",
               text: "There was an error rejecting the class",
               icon: "error",
+              background: "#07332F",
+              color: "#F2871D",
             });
           },
         });
       }
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Loading></Loading>
+      </div>
+    );
+  }
   return (
     <div className="bg-slate-200 min-h-screen my-auto">
       <Container>
         <div className="pt-16">
-          <div className="overflow-x-auto bg-white border-2 border-black">
+          <div className="overflow-x-auto p-2 border-2 border-black bg-base-green">
             <table className="table">
-              <thead className="text-gray-500">
+              <thead className="text-gray-300">
                 <tr>
                   <th>Class Image</th>
                   <th>Class Title</th>
@@ -121,12 +145,18 @@ const AllAddedClasses = () => {
                   <th>Class Progress</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-600">
+              <tbody className="text-gray-400">
                 {allClasses.map((data, idx) => (
                   <tr key={idx}>
                     <td>
                       <div className="flex items-center gap-3">
-                        <div className="avatar">
+                        <div
+                          className={`avatar border-4 rounded-2xl ${
+                            data?.status === "Pending" && "border-orange-500"
+                          } ${
+                            data?.status === "Accepted" && "border-green-500"
+                          } ${data?.status === "Rejected" && "border-red-500"}`}
+                        >
                           <div className="mask mask-squircle w-12 h-12">
                             <img
                               src={data?.classImage}
@@ -140,13 +170,21 @@ const AllAddedClasses = () => {
                     <td>{data?.teacherName}</td>
                     <td>{data?.teacherEmail}</td>
                     <td>{data?.classDescription.split("").slice(0, 20)}....</td>
-                    <td>{data?.status}</td>
+                    <td
+                      className={`font-semibold ${
+                        data?.status === "Pending" && "text-orange-500"
+                      } ${data?.status === "Accepted" && "text-green-500"} ${
+                        data?.status === "Rejected" && "text-red-500"
+                      }`}
+                    >
+                      {data?.status}
+                    </td>
                     <td>
                       <button
                         onClick={() =>
                           handleClassApproved(data?._id, data?.classTitle)
                         }
-                        className={`btn btn-sm ${
+                        className={`p-2 bg-base-orange rounded-lg ${
                           data?.status === "Accepted" && "bg-green-500"
                         }`}
                       >
@@ -158,7 +196,7 @@ const AllAddedClasses = () => {
                         onClick={() =>
                           handleClassReject(data?._id, data?.classTitle)
                         }
-                        className={`btn btn-sm ${
+                        className={`p-2 bg-base-orange rounded-lg ${
                           data?.status === "Rejected" && "bg-red-500"
                         }`}
                       >
@@ -172,9 +210,13 @@ const AllAddedClasses = () => {
                             data?.status === "Pending" ||
                             data?.status === "Rejected"
                           }
-                          className="btn btn-sm"
+                          className={`p-2  rounded-lg ${
+                            data?.status === "Accepted" && "bg-green-500"
+                          } ${data?.status === "Rejected" && "bg-red-500"} ${
+                            data?.status === "Pending" && "bg-blue-500"
+                          }`}
                         >
-                          <TbReport className="text-2xl"></TbReport>
+                          <TbReport className="text-2xl text-white"></TbReport>
                         </button>
                       </Link>
                     </td>

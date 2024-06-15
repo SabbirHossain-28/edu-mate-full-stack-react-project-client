@@ -13,7 +13,6 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const AddedClassDetails = () => {
-  // const axiosCommon = useAxiosCommon();
   const axiosSecure=useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -57,6 +56,8 @@ const AddedClassDetails = () => {
             title: "Successfully Added",
             text: "Your assignment has been added successfully.",
             icon: "success",
+            background: "#07332F",
+            color: "#F2871D",
           });
           refetch();
           reset();
@@ -70,6 +71,8 @@ const AddedClassDetails = () => {
           title: "Error!",
           text: "An error occurred while creating the assignment.",
           icon: "error",
+          background: "#07332F",
+            color: "#F2871D",
         });
       },
     });

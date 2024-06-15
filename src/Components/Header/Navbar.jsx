@@ -3,11 +3,11 @@ import { SiSololearn } from "react-icons/si";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { IoIosContact } from "react-icons/io";
-import useRole from "../../Hooks/useRole"
+import useRole from "../../Hooks/useRole";
 
 const Navbar = () => {
   const { user, userLogOut, loading } = useAuth();
-  const [role]=useRole();
+  const [role] = useRole();
   // console.log(user);
   const navLinks = (
     <>
@@ -31,6 +31,8 @@ const Navbar = () => {
         title: `Bye Bye ${user?.displayName}! Come back soon`,
         showConfirmButton: false,
         timer: 1500,
+        background: "#07332F",
+        color: "#F2871D",
       });
     });
   };
@@ -104,7 +106,9 @@ const Navbar = () => {
                 ) : (
                   <div className="flex justify-center items-center ">
                     {loading ? (
-                        <p className="text-base-orange text-xs pt-3">Loading...</p>
+                      <p className="text-base-orange text-xs pt-3">
+                        Loading...
+                      </p>
                     ) : (
                       <IoIosContact className="text-gray-200 size-11 border-2 rounded-full"></IoIosContact>
                     )}
@@ -118,7 +122,8 @@ const Navbar = () => {
             >
               <li>
                 <p className="justify-between">
-                  {user ? user?.displayName : "User not available"}({role ? role:"?"})
+                  {user ? user?.displayName : "User not available"}(
+                  {role ? role : "?"})
                 </p>
               </li>
               <li>

@@ -13,7 +13,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 const TeachOn = () => {
   const { user } = useAuth();
   // const axiosCommon = useAxiosCommon();
-  const axiosSecure=useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const [profileImage, setProfileImage] = useState("");
   const [isImageChanged, setIsImageChanged] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -90,6 +90,8 @@ const TeachOn = () => {
             title: "Application Submitted",
             text: "Your application has been submitted for review.",
             icon: "success",
+            background: "#07332F",
+            color: "#F2871D",
           });
           refetch();
           setLoading(false);
@@ -112,8 +114,10 @@ const TeachOn = () => {
       title: "Sorry Sir",
       text: "Admin can not apply for a teacher post!",
       icon: "warning",
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#F2871D",
       confirmButtonText: "Ok",
+      background: "#07332F",
+      color: "#F2871D",
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/");

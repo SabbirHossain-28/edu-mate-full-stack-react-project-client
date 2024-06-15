@@ -29,16 +29,18 @@ const PaymentModal = ({ handleModalClose, classDataForEnroll, refetch }) => {
       icon: "error",
       title: "Sorry!!",
       text: "You already enroll this class",
+      background: "#07332F",
+      color: "#F2871D",
     });
     handleModalClose();
   }
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center bg-base-green bg-opacity-50">
-        <div className="modal-box rounded  p-8">
+        <div className="modal-box rounded bg-base-green  p-8">
           <div className="text-center text-base-orange mb-4">
             <h2 className="text-3xl font-poppin font-medium">
-              Create Assignment Here
+              Payment Here
             </h2>
           </div>
           <div>
