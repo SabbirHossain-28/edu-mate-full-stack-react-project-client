@@ -42,8 +42,6 @@ const AllUsers = () => {
     },
   });
 
-  console.log(count);
-
   const numberOfPages = Math.ceil(count / 10);
   const pages = [
     ...Array(numberOfPages)

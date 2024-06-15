@@ -5,21 +5,44 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Loading from "../../../../Shared/Loading/Loading";
+import { useState } from "react";
 
 const TeacherRequest = () => {
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const {
     data: applications = [],
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["applications"],
+    queryKey: ["applications",currentPage],
     queryFn: async () => {
-      const res = await axiosSecure.get("/applications");
+      const res = await axiosSecure.get(`/applications?page=${currentPage}&size=${5}`);
       return res.data;
     },
   });
+
+  const {data:count=0}=useQuery({
+    queryKey:["count"],
+    queryFn:async()=>{
+      const res=await axiosSecure.get("/countedApplications");
+      return res.data.result;
+    }
+  })
+
+  const numberOfPages = Math.ceil(count / 5);
+  const pages = [
+    ...Array(numberOfPages)
+      .keys()
+      .map((key) => key + 1),
+  ];
+
+  const handleCurrentPage = (value) => {
+    setCurrentPage(value);
+  };
+
+
   const { mutateAsync: approveMutate } = useMutation({
     mutationFn: async (id) => {
       const res = await axiosSecure.patch(`/applications/approve/${id}`);
@@ -221,6 +244,69 @@ const TeacherRequest = () => {
               </tbody>
             </table>
           </div>
+        </div>
+        <div>
+          <ol className="flex justify-center gap-1 text-xs font-medium mt-4">
+            <li>
+              <button
+                disabled={currentPage === 1}
+                onClick={() => handleCurrentPage(currentPage - 1)}
+                className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+              >
+                <span className="sr-only">Prev Page</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-3 w-3"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </li>
+
+            <li className="flex gap-2">
+              {pages.map((page, idx) => (
+                <button
+                  onClick={() => handleCurrentPage(page)}
+                  key={idx}
+                  className={`${
+                    currentPage === page
+                      ? "bg-base-orange text-black dark:text-white border-2 border-black"
+                      : "bg-white text-gray-900 dark:text-white"
+                  }block size-8 rounded   text-center leading-8 `}
+                >
+                  {page}
+                </button>
+              ))}
+            </li>
+
+            <li>
+              <button
+                disabled={currentPage === numberOfPages}
+                onClick={() => handleCurrentPage(currentPage + 1)}
+                className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+              >
+                <span className="sr-only">Next Page</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-3 w-3"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </li>
+          </ol>
         </div>
       </Container>
     </div>
