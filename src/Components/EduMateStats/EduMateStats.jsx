@@ -18,11 +18,11 @@ const EduMateStats = () => {
     <div className="bg-base-green">
       <section>
         <div className="pt-12">
-          <h1 className="text-2xl font-raleWay font-semibold text-center text-gray-800 capitalize lg:text-4xl dark:text-white">
+          <h1 className="text-2xl font-raleWay font-semibold text-center text-gray-300 capitalize lg:text-4xl dark:text-white">
             Here Is Our Platform Insights
           </h1>
 
-          <p className="max-w-7xl text-base mx-auto my-6 text-center text-gray-500 dark:text-gray-300 font-poppin">
+          <p className="max-w-7xl text-base mx-auto my-6 text-center text-gray-400 dark:text-gray-300 font-poppin">
           Discover the heartbeat of our platform! This section showcases vital statistics: the total number of registered users, the number of available classes, and the total student enrollments. On the left, these key metrics are presented in a sleek card format, providing a quick and clear overview.
           </p>
         </div>

@@ -173,7 +173,7 @@ const MyClassDetails = () => {
     );
   }
   return (
-    <div className="bg-slate-200 min-h-screen my-auto">
+    <div className="bg-slate-200 dark:bg-gray-900 min-h-screen my-auto">
       <Container>
         <div className="pt-16">
           <div className="mb-4">

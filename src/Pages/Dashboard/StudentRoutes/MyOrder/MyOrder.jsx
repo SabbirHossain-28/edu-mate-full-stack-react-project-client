@@ -57,7 +57,7 @@ const MyOrder = () => {
   }
   return (
     <div>
-      <div className="bg-slate-200 min-h-screen my-auto">
+      <div className="bg-slate-200 dark:bg-gray-900 min-h-screen my-auto">
         <Container>
           <div className="pt-16">
             <div className="overflow-x-auto p-2 border-2 border-black bg-base-green">

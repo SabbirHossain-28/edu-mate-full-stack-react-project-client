@@ -40,10 +40,10 @@ const ClassDetailEnroll = () => {
     setIsModalOpen(false);
   };
   return (
-    <div>
+    <div className="p">
       <Container>
-        <div className="bg-slate-200 py-16">
-          <div className="mb-8 text-center">
+        <div className="pt-16">
+          <div className=" text-center mb-8">
             <h2 className="text-4xl bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-yellow-500 font-poppin font-bold">
               Wellcome! &#39;{user?.displayName}&#39; in{" "}
               {classDataForEnroll?.classTitle} course
@@ -59,7 +59,7 @@ const ClassDetailEnroll = () => {
                   Now&bdquo; to start your creative journey with us.
                 </p> */}
           </div>
-          <section className="bg-white dark:bg-gray-900">
+          <section className="bg-base-green">
             <div className="container px-6 py-10 mx-auto">
               <div className="lg:flex lg:-mx-6">
                 <div className="lg:w-3/4 lg:px-6">
@@ -74,7 +74,7 @@ const ClassDetailEnroll = () => {
                       {classDataForEnroll?.classDescription}
                     </p>
 
-                    <h1 className="max-w-lg mt-4 text-2xl font-semibold leading-tight text-gray-800 dark:text-white">
+                    <h1 className="max-w-lg mt-4 text-2xl font-semibold leading-tight text-gray-300 dark:text-white">
                       Teacher Information
                     </h1>
 
@@ -82,15 +82,16 @@ const ClassDetailEnroll = () => {
                       <div className="flex items-center mt-6">
                         <img
                           className="object-cover object-center w-16 h-16 rounded-full"
+                          referrerPolicy="no-referrer"
                           src={classDataForEnroll?.teacherImage}
                           alt="Teacher Image"
                         />
 
                         <div className="mx-4">
-                          <h1 className="text-sm text-gray-700 dark:text-gray-200">
+                          <h1 className="text-sm text-gray-400 dark:text-gray-200">
                             {classDataForEnroll?.teacherName}
                           </h1>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                          <p className="text-sm text-gray-400 dark:text-gray-400">
                             {classDataForEnroll?.teacherEmail}
                           </p>
                         </div>
@@ -98,7 +99,7 @@ const ClassDetailEnroll = () => {
                       <div>
                         <button
                           onClick={handleModalOpen}
-                          className="border text-lg font-bold font-poppin px-3 py-2 mt-4 rounded-lg bg-gradient-to-r from-pink-500 to-yellow-500 text-base-green border-none hover:scale-95 transition-all ease-in duration-200 hover:text-white"
+                          className="border text-sm md:text-lg font-bold font-poppin px-2 md:px-3 py-2 mt-4 rounded-lg bg-gradient-to-r from-pink-500 to-yellow-500 text-base-green border-none hover:scale-95 transition-all ease-in duration-200 hover:text-white"
                         >
                           Enroll This Class
                         </button>
@@ -120,7 +121,7 @@ const ClassDetailEnroll = () => {
                       Title of the class
                     </h3>
 
-                    <a className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400">
+                    <a className="block mt-2 font-medium text-gray-300 hover:underline hover:text-gray-400 dark:text-gray-400">
                       {classDataForEnroll?.classTitle}
                     </a>
                   </div>
@@ -132,7 +133,7 @@ const ClassDetailEnroll = () => {
                       Total Enrollment
                     </h3>
 
-                    <a className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400">
+                    <a className="block mt-2 font-medium text-gray-300 hover:underline hover:text-gray-400 dark:text-gray-400">
                       {classDataForEnroll?.totalEnrollment}/Students
                     </a>
                   </div>
@@ -144,7 +145,7 @@ const ClassDetailEnroll = () => {
                       Total Assignment
                     </h3>
 
-                    <a className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400">
+                    <a className="block mt-2 font-medium text-gray-300 hover:underline hover:text-gray-400 dark:text-gray-400">
                       {classDataForEnroll?.assignment === 0
                         ? "Teacher not added any assignment yet"
                         : classDataForEnroll?.assignment}
@@ -158,7 +159,7 @@ const ClassDetailEnroll = () => {
                       Price of this class
                     </h3>
 
-                    <a className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400">
+                    <a className="block mt-2 font-medium text-gray-300 hover:underline hover:text-gray-400 dark:text-gray-400">
                       {classDataForEnroll?.price} $
                     </a>
                   </div>

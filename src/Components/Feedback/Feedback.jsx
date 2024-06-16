@@ -21,7 +21,7 @@ const Feedback = () => {
   console.log(feedbacksData);
 
   return (
-    <div className="bg-slate-200 py-12">
+    <div className="bg-slate-200 dark:bg-gray-900 py-12">
       <div className="max-w-7xl mx-auto">
       <div className="flex justify-center text-center mb-8">
         <SectionHeader

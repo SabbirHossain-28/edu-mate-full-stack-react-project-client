@@ -27,14 +27,14 @@ const Authority = () => {
     },
   ];
   return (
-    <div className="py-12 bg-slate-200">
-      <section className="bg-white dark:bg-base-green">
+    <div className="py-12 bg-slate-200 dark:bg-gray-900">
+      <section className="bg-base-green">
         <div className="container px-6 py-10 mx-auto">
-          <h1 className="text-2xl font-raleWay font-semibold text-center text-gray-800 capitalize lg:text-4xl dark:text-white">
+          <h1 className="text-2xl font-raleWay font-semibold text-center text-gray-300 capitalize lg:text-4xl dark:text-gray-300">
             Meet The Authority Team of EduMate
           </h1>
 
-          <p className="max-w-7xl mx-auto my-6 text-center text-gray-500 dark:text-gray-300">
+          <p className="max-w-7xl mx-auto my-6 text-center text-gray-400 dark:text-gray-400">
             we proudly introduce the visionary leaders behind EduMate. Our
             dedicated team of founders and key advisors ensures that EduMate
             remains at the forefront of online education. Get to know the
@@ -59,11 +59,11 @@ const Authority = () => {
                   alt=""
                 />
 
-                <h1 className="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-base-green">
+                <h1 className="mt-4 text-2xl font-semibold text-gray-400 capitalize dark:text-white group-hover:text-base-green">
                   {data.name}
                 </h1>
 
-                <p className="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-base-green">
+                <p className="mt-2 text-gray-400 capitalize dark:text-gray-300 group-hover:text-base-green">
                   {data.position}
                 </p>
 

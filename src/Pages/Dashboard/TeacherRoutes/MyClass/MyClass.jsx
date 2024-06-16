@@ -193,7 +193,7 @@ const MyClass = () => {
 
   if (requestedClasses.length === 0) {
     return (
-      <div className="bg-slate-200 min-h-screen flex items-center justify-center">
+      <div className="bg-slate-200 dark:bg-gray-900 min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-3xl font-pop font-bold mb-4">
             Opppsss!!!!....There is no added class data for you!
@@ -208,7 +208,7 @@ const MyClass = () => {
   }
 
   return (
-    <div className="bg-slate-200 min-h-screen my-auto">
+    <div className="bg-slate-200 dark:bg-gray-900 min-h-screen my-auto">
       <Container>
         <div className="pt-16">
           <div className="overflow-x-auto bg-base-green border-2 border-black p-2">

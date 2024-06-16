@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Teaching = () => {
   return (
-    <div className="py-12 bg-slate-200">
+    <div className="py-12 bg-slate-200 dark:bg-gray-900">
         
       <section className="flex min-h-[600px]   w-full items-center justify-center bg-base-green px-8 py-2">
         <div className="flex w-full max-w-6xl gap-10 lg:flex-row flex-col items-center justify-between">

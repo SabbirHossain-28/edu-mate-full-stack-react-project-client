@@ -128,12 +128,12 @@ const TeachOn = () => {
 
   if (hasPending) {
     return (
-      <div className="bg-slate-200 min-h-screen flex items-center justify-center">
+      <div className="bg-slate-200 dark:bg-gray-900 min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-5xl font-pop font-bold mb-4">
+          <h2 className="text-5xl font-pop font-bold mb-4 text-gray-700 dark:text-gray-400">
             Teacher request is successfully submited
           </h2>
-          <p className="text-2xl font-poppin">
+          <p className="text-2xl font-poppin text-gray-700 dark:text-gray-400">
             Your given information and request for a teacher post is submitted
             successfully. Please wait for admin approval
           </p>
@@ -144,12 +144,12 @@ const TeachOn = () => {
 
   if (userData?.role === "Teacher") {
     return (
-      <div className="bg-slate-200 min-h-screen flex items-center justify-center">
+      <div className="bg-slate-200 dark:bg-gray-900 min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-5xl font-pop font-bold mb-4">
+          <h2 className="text-5xl font-pop font-bold mb-4 text-gray-700 dark:text-gray-400">
             Congratulations!{userData?.name}
           </h2>
-          <p className="text-2xl font-poppin">
+          <p className="text-2xl font-poppin text-gray-700 dark:text-gray-400">
             You have been approved as a Teacher.
           </p>
         </div>

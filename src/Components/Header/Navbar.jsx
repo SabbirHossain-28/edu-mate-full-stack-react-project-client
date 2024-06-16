@@ -43,7 +43,7 @@ const Navbar = () => {
     <>
       <div className="navbar bg-[#07332F] fixed z-[99] bg-opacity-80">
         <div className="navbar-start">
-          <div className="dropdown">
+          <div className="dropdown bg-base-orange rounded-lg">
             <div
               tabIndex={0}
               role="button"
@@ -66,13 +66,13 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 font-poppin"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-slate-200 dark:bg-gray-900 rounded-box w-52 font-poppin text-gray-700 dark:text-gray-400"
             >
               {navLinks}
             </ul>
           </div>
           <Link to={"/"} className=" text-3xl font-pop text-[#151515]">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 ml-1">
               <SiSololearn className="text-[#F2871D]"></SiSololearn>
               <p className="text-[#F2871D]">EduMate</p>
             </div>
@@ -122,15 +122,15 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="mt-3 z-[1]  p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 font-poppin"
+              className="mt-3 z-[1]  p-2 shadow menu menu-sm dropdown-content bg-slate-200 dark:bg-gray-900 rounded-box w-52 font-poppin"
             >
               <li>
-                <p className="justify-between">
+                <p className="justify-between text-gray-700 dark:text-gray-400">
                   {user ? user?.displayName : "User not available"}(
                   {role ? role : "?"})
                 </p>
               </li>
-              <li>
+              <li className="text-gray-700 dark:text-gray-400">
                 <Link to="/dashboard/userProfile">Dashboard</Link>
               </li>
               <li>

@@ -183,7 +183,7 @@ const {data:userData={}}=useQuery({
     },
   ];
   return (
-    <div className="bg-slate-200 min-h-screen flex items-center justify-center">
+    <div className="bg-slate-200 dark:bg-gray-900 px-4 py-8 lg:px-0 lg:py-0 min-h-screen flex items-center justify-center">
       <div className="flex w-[550px] flex-col items-center justify-center space-y-4 rounded-xl bg-base-green p-8 font-sans shadow-lg dark:bg-base-green">
         <div className="group relative">
           <img

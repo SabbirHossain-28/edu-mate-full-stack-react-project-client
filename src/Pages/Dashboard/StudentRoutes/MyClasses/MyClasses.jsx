@@ -61,7 +61,7 @@ const MyClasses = () => {
                       Product
                     </span> */}
                     <a
-                      className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline"
+                      className="block mt-2 text-xl font-semibold text-gray-400 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline"
                       tabIndex="0"
                       role="link"
                     >
@@ -78,7 +78,7 @@ const MyClasses = () => {
                           alt="Avatar"
                         />
                         <a
-                          className="mx-2 font-semibold text-gray-700 dark:text-gray-200"
+                          className="mx-2 font-semibold text-gray-400 dark:text-gray-200"
                           tabIndex="0"
                           role="link"
                         >
