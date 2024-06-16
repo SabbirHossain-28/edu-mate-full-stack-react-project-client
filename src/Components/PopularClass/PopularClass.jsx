@@ -93,11 +93,11 @@ const PopularClass = () => {
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <p rel="noopener noreferrer" className="block">
-                          <h3 className="text-xl h-16 font-semibold text-gray-200">
+                        <a rel="noopener noreferrer" className="block">
+                          <p className="text-xl h-16 font-semibold text-gray-200">
                             {data?.classTitle}
-                          </h3>
-                        </p>
+                          </p>
+                        </a>
                         <p className="leading-snug h-16 text-gray-400">
                           {data?.classDescription.split("").slice(0, 110)}....
                           <Link to={`/classDetail-enroll/${data?._id}`}>

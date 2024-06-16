@@ -44,7 +44,7 @@ const EduMateStats = () => {
                   <h2 className="mt-1 text-xl font-bold text-white">
                     Total Memebers In EduMate
                   </h2>
-                  <p className="text-xl font-bold text-white font-poppin">{isLoading?<p>Loading...</p>: statsData?.totalUsers}</p>
+                  <p className="text-xl font-bold text-white font-poppin">{isLoading?<span>Loading...</span>: statsData?.totalUsers}</p>
                 </div>
               </div>
 
@@ -55,7 +55,7 @@ const EduMateStats = () => {
                   <h2 className="mt-1 text-xl font-bold text-white">
                     Total Classes In EduMate
                   </h2>
-                  <p className="text-xl font-bold text-white font-poppin">{isLoading?<p>Loading...</p>:statsData?.totalClasses}</p>
+                  <p className="text-xl font-bold text-white font-poppin">{isLoading?<span>Loading...</span>:statsData?.totalClasses}</p>
                 </div>
               </div>
               <div className="rounded-xl  border bg-base-green border-gray-600 p-8 shadow-xl transition hover:border-pink-500/10 hover:shadow-pink-500/10 flex justify-center items-center gap-2">
@@ -65,7 +65,7 @@ const EduMateStats = () => {
                   <h2 className="mt-1 text-xl font-bold text-white">
                     Total Class Enrollment
                   </h2>
-                  <p className="text-xl font-bold text-white font-poppin">{isLoading?<p>Loading...</p>:statsData?.totalEnrollments}</p>
+                  <p className="text-xl font-bold text-white font-poppin">{isLoading?<span>Loading...</span>:statsData?.totalEnrollments}</p>
                 </div>
               </div>
             </div>

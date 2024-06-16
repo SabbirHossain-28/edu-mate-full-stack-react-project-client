@@ -4,11 +4,14 @@ import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { IoIosContact } from "react-icons/io";
 import useRole from "../../Hooks/useRole";
+import { useTheme } from "../../Hooks/useTheme";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 const Navbar = () => {
   const { user, userLogOut, loading } = useAuth();
   const [role] = useRole();
-  // console.log(user);
+  const {changeTheme,mode}=useTheme();
+  console.log(mode,changeTheme);
   const navLinks = (
     <>
       <li>
@@ -79,6 +82,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 font-poppin">{navLinks}</ul>
         </div>
         <div className="navbar-end ">
+        <button onClick={changeTheme} className={`p-2 lg:p-4 ${mode==="light"?"bg-teal-500 text-black":"bg-gray-500"} rounded-full border-none text-2xl mr-3 lg:mr-5 `}>{mode==="light"?<MdLightMode></MdLightMode>:<MdDarkMode></MdDarkMode>}</button>
           {!user && !loading && (
             <Link to="/login">
               <button className="btn btn-xs text-[#F2871D] font-poppin md:btn-sm lg:btn-md mr-4">
