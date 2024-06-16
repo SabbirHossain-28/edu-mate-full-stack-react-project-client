@@ -5,15 +5,15 @@ import { useForm } from "react-hook-form";
 import loginBgGif from "../../assets/images/loginbg/user-login.gif";
 import { SiSololearn } from "react-icons/si";
 import useAuth from "../../Hooks/useAuth";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import Swal from "sweetalert2";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-  const [formData, setFormData] = useState(null);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isVerified, setIsVerified] = useState(false);
+  // const [formData, setFormData] = useState(null);
   const { loginUser, googleLogin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,30 +29,21 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    setFormData(data);
-    setIsModalOpen(true);
-  };
-
-  const handleValidateCaptcha = async (e) => {
-    e.preventDefault();
-    if (isVerified) {
-      try {
-        const userCredential = await loginUser(
-          formData.email,
-          formData.password
-        );
-        if (userCredential) {
-          setIsModalOpen(false);
-          Swal.fire({
-            title: `Welcome! ${userCredential?.user?.displayName}`,
-            text: "You are successfully login EduMate",
-            icon: "success",
-            background: "#07332F",
-            color: "#F2871D",
-          });
-          navigate(from, { replace: true });
-        }
-      } catch (error) {
+    const { email, password } = data;
+    loginUser(email, password)
+      .then((userCredential) => {
+        Swal.fire({
+          title: `Welcome! ${userCredential?.user?.displayName}`,
+          text: "You are successfully login EduMate",
+          icon: "success",
+          background: "#07332F",
+          color: "#F2871D",
+        });
+        navigate(from, { replace: true });
+        reset();
+      })
+      .catch((error) => {
+        console.error(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -60,19 +51,49 @@ const Login = () => {
           background: "#07332F",
           color: "#F2871D",
         });
-        setIsModalOpen(false);
-        reset();
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Please verify the captcha!",
-        background: "#07332F",
-        color: "#F2871D",
       });
-    }
   };
+
+  // const handleValidateCaptcha = async (e) => {
+  //   e.preventDefault();
+  //   if (isVerified) {
+  //     try {
+  //       const userCredential = await loginUser(
+  //         formData.email,
+  //         formData.password
+  //       );
+  //       if (userCredential) {
+  //         setIsModalOpen(false);
+  //         Swal.fire({
+  //           title: `Welcome! ${userCredential?.user?.displayName}`,
+  //           text: "You are successfully login EduMate",
+  //           icon: "success",
+  //           background: "#07332F",
+  //           color: "#F2871D",
+  //         });
+  //         navigate(from, { replace: true });
+  //       }
+  //     } catch (error) {
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Oops...",
+  //         text: `Something went wrong!${error.message}`,
+  //         background: "#07332F",
+  //         color: "#F2871D",
+  //       });
+  //       setIsModalOpen(false);
+  //       reset();
+  //     }
+  //   } else {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: "Please verify the captcha!",
+  //       background: "#07332F",
+  //       color: "#F2871D",
+  //     });
+  //   }
+  // };
 
   const handleGoogleLogin = () => {
     googleLogin()
@@ -104,11 +125,11 @@ const Login = () => {
       });
   };
 
-  const verifyChecked = (response) => {
-    if (response) {
-      setIsVerified(true);
-    }
-  };
+  // const verifyChecked = (response) => {
+  //   if (response) {
+  //     setIsVerified(true);
+  //   }
+  // };
 
   const handlePasswordShowToggler = () => {
     setShowPassword(!showPassword);
@@ -300,7 +321,7 @@ const Login = () => {
               </div>
             </div>
           </div>
-          {isModalOpen && (
+          {/* {isModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
               <div className="modal-box bg-base-green rounded p-8">
                 <div className="text-center mb-4">
@@ -323,7 +344,7 @@ const Login = () => {
                 </form>
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
