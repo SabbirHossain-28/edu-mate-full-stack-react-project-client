@@ -20,11 +20,13 @@ import AdminRoute from "./AdminRoute";
 import MyClassDetails from "../Pages/Dashboard/StudentRoutes/MyClassDetails";
 import AddedClassProgress from "../Pages/Dashboard/AdminRoutes/AllAddedClasses/AddedClassProgress";
 import MyOrder from "../Pages/Dashboard/StudentRoutes/MyOrder/MyOrder";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
