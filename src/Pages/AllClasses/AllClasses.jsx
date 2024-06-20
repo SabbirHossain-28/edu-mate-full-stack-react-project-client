@@ -3,11 +3,14 @@ import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import Container from "../../Shared/Container/Container";
 import SectionHeader from "../../Shared/SectionHeader/SectionHeader";
 import { Link } from "react-router-dom";
+// import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Loading from "../../Shared/Loading/Loading";
 
 const AllClasses = () => {
   const axiosCommon = useAxiosCommon();
+  // const axiosSecure = useAxiosSecure();
 
-  const { data: acceptedClass = [] } = useQuery({
+  const { data: acceptedClass = [],isLoading } = useQuery({
     queryKey: ["acceptedClass"],
     queryFn: async () => {
       const res = await axiosCommon.get("/allclasses/accepted");
@@ -15,6 +18,9 @@ const AllClasses = () => {
     },
   });
   console.log(acceptedClass);
+
+  
+  if(isLoading) return <div className="min-h-screen flex justify-center items-center"><Loading></Loading></div>
   return (
     <div>
       <Container>

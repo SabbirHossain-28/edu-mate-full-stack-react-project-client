@@ -198,7 +198,7 @@ const {data:userData={}}=useQuery({
           <span className="absolute bottom-3 right-0 h-5 w-5 animate-ping rounded-full bg-green-500"></span>
         </div>
         <div className="space-y-1 text-center">
-          <h1 className="text-2xl text-gray-700 dark:text-white/90">
+          <h1 className="text-2xl text-gray-300 dark:text-white/90">
             {userData?.name}
           </h1>
           <p className="text-sm text-gray-400">Role: {userData?.role}</p>

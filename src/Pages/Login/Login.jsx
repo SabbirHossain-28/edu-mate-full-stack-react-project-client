@@ -107,7 +107,7 @@ const Login = () => {
             phone: userCredential.user?.phoneNumber,
           };
           axiosCommon.post("/users", userInfo).then((res) => {
-            if (res.data.insertedId) {
+            if (res.data.insertedId || userCredential) {
               Swal.fire({
                 title: "Google Login Successfull",
                 text: "You successfully login with your google account",
