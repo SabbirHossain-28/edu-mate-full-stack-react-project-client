@@ -58,7 +58,6 @@ const TeacherRequest = () => {
   });
 
   const handleApproved = (id, userName) => {
-    console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "You want to accept this user teacher request",
@@ -99,7 +98,6 @@ const TeacherRequest = () => {
     });
   };
   const handleRejected = (id, userName) => {
-    console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "You want reject this user teacher request",

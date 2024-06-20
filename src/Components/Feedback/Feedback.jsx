@@ -18,7 +18,6 @@ const Feedback = () => {
       return res.data;
     },
   });
-  console.log(feedbacksData);
 
   return (
     <div className="bg-slate-200 dark:bg-gray-900 py-12">

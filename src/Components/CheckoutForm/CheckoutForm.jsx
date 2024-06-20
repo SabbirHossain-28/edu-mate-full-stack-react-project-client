@@ -23,7 +23,6 @@ const CheckoutForm = ({ classDataForEnroll, refetch }) => {
       axiosSecure
         .post("/create-payment-intent", { price: classDataForEnroll?.price })
         .then((res) => {
-          console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         });
     }
@@ -73,9 +72,10 @@ const CheckoutForm = ({ classDataForEnroll, refetch }) => {
       });
     if (confirmCardError) {
       console.log("Confirmation related error", confirmCardError);
-    } else {
-      console.log("Payment Intent", paymentIntent);
-    }
+    } 
+    // else {
+    //   console.log("Payment Intent", paymentIntent);
+    // }
     if (paymentIntent.status === "succeeded") {
       // console.log("TransactionId", paymentIntent.id);
       // setTransactionId(paymentIntent.id);

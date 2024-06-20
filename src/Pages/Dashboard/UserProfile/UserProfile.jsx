@@ -13,7 +13,6 @@ const {data:userData={}}=useQuery({
     return res.data;
   }
 })
-  console.log(userData);
   const svgs = [
     {
       svg: (

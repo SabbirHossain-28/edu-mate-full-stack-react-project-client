@@ -44,7 +44,6 @@ const TeachOn = () => {
 
   const hasPending = applicationData.some((app) => app?.status === "Pending");
   const hasRejected = applicationData.some((app) => app?.status === "Rejected");
-  // console.log(hasPending);
 
   useEffect(() => {
     if (userData) {

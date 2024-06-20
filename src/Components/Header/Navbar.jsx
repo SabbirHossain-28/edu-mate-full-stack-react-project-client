@@ -11,7 +11,6 @@ const Navbar = () => {
   const { user, userLogOut, loading } = useAuth();
   const [role] = useRole();
   const {changeTheme,mode}=useTheme();
-  console.log(mode,changeTheme);
   const navLinks = (
     <>
       <li>

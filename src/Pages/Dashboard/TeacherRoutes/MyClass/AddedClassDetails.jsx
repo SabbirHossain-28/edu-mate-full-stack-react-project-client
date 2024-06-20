@@ -48,7 +48,6 @@ const AddedClassDetails = () => {
       assignmentDeadline: startDate.toLocaleDateString(),
       classId: id,
     };
-    console.log(assignmentData);
     await mutateAddAssignment(assignmentData, {
       onSuccess: (data) => {
         if (data.insertedId) {

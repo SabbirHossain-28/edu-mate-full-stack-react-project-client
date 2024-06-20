@@ -109,7 +109,6 @@ const AllUsers = () => {
       }
     });
   };
-  console.log(users);
   if (isLoading)
     return (
       <div className="flex justify-center items-center min-h-screen">

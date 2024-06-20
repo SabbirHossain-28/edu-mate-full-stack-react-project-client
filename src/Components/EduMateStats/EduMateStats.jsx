@@ -13,7 +13,6 @@ const EduMateStats = () => {
             return res.data;
         }
     })
-    console.log(statsData);
   return (
     <div className="bg-base-green">
       <section>

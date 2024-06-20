@@ -52,7 +52,6 @@ const MyClass = () => {
       return res.data.result;
     },
   });
-  console.log(count);
 
   const numberOfPages = Math.ceil(count / 10);
   const pages = [
@@ -137,7 +136,6 @@ const MyClass = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    console.log(data);
     let imageURL = classImage;
     if (isImageChanged) {
       const imageFile = data?.classImage[0];

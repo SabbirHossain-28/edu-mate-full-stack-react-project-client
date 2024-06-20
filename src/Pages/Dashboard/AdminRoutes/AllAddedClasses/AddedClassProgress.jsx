@@ -17,7 +17,6 @@ const AddedClassProgress = () => {
       return res.data;
     },
   });
-  console.log(feedbacksData);
   if (isLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
